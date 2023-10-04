@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">    
+  <link rel="stylesheet" href="css/custom.css">  
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-warning fw-bold" href='<c:url value="/main"/>'>FBH-EDI Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color:#DECEFE">
+                            EDI-Documents
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href='<c:url value="/edi/list/210"/>'>Hug Invoice (210)</a></li>
+                            <li><a class="dropdown-item" href='<c:url value="/edi/list/810"/>'>Invoice (810)</a></li>
+                            <li><a class="dropdown-item" href='<c:url value="/edi/list/846"/>'>Inventory Inquiry (846)</a></li>
+                            <li><a class="dropdown-item" href='<c:url value="/edi/list/850"/>'>Purchase Order (850)</a></li>
+                            <li><a class="dropdown-item" href='<c:url value="/edi/list/940"/>'>Warehouse Shipping Order (940)</a></li>
+                            <li><a class="dropdown-item" href='<c:url value="/edi/list/944"/>'>Warehouse Stock Transfer Receipt Advice (944)</a></li>
+                            <li><a class="dropdown-item" href='<c:url value="/edi/list/945"/>'>Warehouse Shipping Advice (945)</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color:#DECEFE">
+                            Codes
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href='<c:url value="/codes/company"/>'>Company</a></li>
+                            <li><a class="dropdown-item" href='<c:url value="/codes/ediCode"/>'>Edi Code</a></li>
+                            <li><a class="dropdown-item" href='<c:url value="/codes/stocks"/>'>Stocks</a></li>
+                            <li><a class="dropdown-item" href='<c:url value="/codes/weekOfYear"/>'>week of year(Kroger)</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color:#DECEFE">
+                            Business Work
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href='<c:url value="/bizwork/list"/>' >매출액</a></li>
+                            <li><a class="dropdown-item" href='<c:url value="/bizwork/list"/>' >850-945</a></li>
+                        </ul>
+                    </li>                 
+                   <sec:authorize access="hasAnyRole('ROLE_ADMIN')"> 
+                   <!-- 관리자만 test와 admin -->    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color:#DECEFE">
+                            System
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href='<c:url value="/admin/user/list"/>' >User</a></li>
+                        </ul>
+                    </li>
+                    </sec:authorize>                 
+                </ul>
+            <div  class="d-flex">
+               <sec:authorize access="isAuthenticated()">
+                  <span class="text-warning fw-bold"><sec:authentication property="principal.username"/> 님 반갑습니다.</span>&nbsp;&nbsp;
+               </sec:authorize>
+               <a href='<c:url value="/logout"/>' title="logout"><i class="fa fa-sign-in text-white-50"></i></a>
+            </div>
+          </div>
+        </div>
+    </nav>
+  </header>
+  <main>
+
+  </main>
+  <footer>
+    <!-- place footer here -->
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
