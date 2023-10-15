@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">     -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" />
+  <!-- bootstrap-table -->
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css">  
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark">
+         <div class="container-fluid">
+             <a class="navbar-brand text-warning fw-bold" href='/Julia/main'>FBH-EDI Management</a>
+             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                 aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+             </button>
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                     <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                             aria-expanded="false" style="color:#DECEFE">
+                             EDI-Documents
+                         </a>
+                         <ul class="dropdown-menu">
+                             <li><a class="dropdown-item" href='/Julia/edi/list/210'>Hub Invoice (210)</a></li>
+                             <li><a class="dropdown-item" href='/Julia/edi/list/810'>Invoice (810)</a></li>
+                             <li><a class="dropdown-item" href='/Julia/edi/list/850'>Purchase Order (850)</a></li>
+                             <li><a class="dropdown-item" href='/Julia/edi/list/945'>Warehouse Shipping Advice (945)</a></li>
+                             <!-- 
+                             <li><a class="dropdown-item" href='/Julia/edi/list/846'>Inventory Inquiry (846)</a></li>
+                             <li><a class="dropdown-item" href='/Julia/edi/list/940'>Warehouse Shipping Order (940)</a></li>
+                             <li><a class="dropdown-item" href='/Julia/edi/list/944'>Warehouse Stock Transfer Receipt Advice (944)</a></li>
+                              -->
+                         </ul>
+                     </li>
+                  <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                             aria-expanded="false" style="color:#DECEFE">
+                             Edi-Business
+                         </a>
+                         <ul class="dropdown-menu">
+                             <li><a class="dropdown-item" href='/Julia/edi/biz/diff850945'>Diff 850-945</a></li>
+                             <li><a class="dropdown-item" href='/Julia/edi/biz/po-trace'>PO Trace</a></li>
+                         </ul>
+                     </li>                 
+                     <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                             aria-expanded="false" style="color:#DECEFE">
+                             Codes
+                         </a>
+                         <ul class="dropdown-menu">
+                             <li><a class="dropdown-item" href='/Julia/codes/company'>Company</a></li>
+                             <li><a class="dropdown-item" href='/Julia/codes/edi-code'>Edi Code</a></li>
+                             <li><a class="dropdown-item" href='/Julia/codes/stocks'>Stocks</a></li>
+                             <li><a class="dropdown-item" href='/Julia/codes/week-of-year'>week of year(Kroger)</a></li>
+                         </ul>
+                     </li>
+             
+            <!-- 관리자만 test와 admin -->    
+                     <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                             aria-expanded="false" style="color:#DECEFE">
+                             System
+                         </a>
+                         <ul class="dropdown-menu">
+                             <li><a class="dropdown-item" href='/Julia/admin/user/list' >User</a></li>
+                         </ul>
+                     </li>
+                                      
+                 </ul>
+             <div  class="d-flex">
+          
+               <span class="text-warning fw-bold">Kim&#32;Do&#32;Young 님 반갑습니다.</span>&nbsp;&nbsp;
+            
+            <a href='/Julia/logout' title="logout"><i class="fa fa-sign-in text-white-50"></i></a>
+             </div>
+           </div>
+         </div>
+     </nav>
+    </header>
+    <main class="container-fluid">
+
+        <h1 class="display-6 text-center">Freight Details and Invoice 210</h1>
+          <div class="search-area border border-1 rounded-2 p-2">
+              Invoice Date 
+              <input type="text" name="frYmd" id="frYmd" autocomplete="off" value="2023-07-16" class="ymd form-control d-inline align-middle text-center"> 
+              ~ 
+              <input type="text" name="toYmd" id="toYmd" autocomplete="off" value="2023-10-14" class="ymd form-control d-inline align-middle text-center">
+              <a href="#" role="button" data-bs-toggle="collapse" data-bs-target="#collapseDateRange" aria-expanded="false" aria-controls="collapseDateRange"><i class="bi bi-building-check"></i></a>
+              <span class="ms-3">Keyword</span>
+              <input type="text" name="searchText" id="searchText" value="" class="searchText form-control d-inline align-middle text-center" />
+             
+             <span class="ms-3">Order</span>
+      <!-- 
+      사용법 : <fbh:Combo value="invoice_dt DESC,invoice DESC|dc_no ASC,dc# ASC" selectedValue="invoice_dt DESC" />
+       -->
+      <select id="orderBy" class=" form-select w-auto d-inline" aria-label="ordery by">
+           <option value="invoice_dt DESC" selected>invoice date DESC</option>
+           <option value="dc_no ASC" >dc# ASC</option>
+      </select>
+              <a class="btn d-inline align-middle btn-primary btnRetrieve"><i class="bi bi-search"></i> 조회</a>
+              <a class="btn d-inline align-middle btn-secondary btnInit"><i class="bi bi-backspace"></i> 초기화</a>
+              <a class="btn d-inline align-middle btn-success btnExcel"><i class="bi bi-file-spreadsheet"></i> 엑셀</a>
+              <a class="btn d-inline align-middle btn-success btnColumnHide"><i class="bi bi-file-spreadsheet"></i> 컬럼</a>
+              <div class="collapse mt-2" id="collapseDateRange">
+                <div class="card card-title">
+                   Date Range 
+                </div>
+                <div class="card card-body d-inline">
+                  <button class="btnDateRangeThisMonth btn btn-info">이번 달</button>
+                  <button class="btnDateRangeThisWeek btn btn-info">이번 주</button>
+                  <button class="btnDateRangeLastMonth btn btn-info">지난 달</button>
+                  <button class="btnDateRangeLastWeek btn btn-info">지난 주</button>
+                </div>
+              </div>                 
+          </div>	
+          <div class="summary row">
+            <div class="col-6">조회된 갯수 : <span id="listSize">24</span></div>
+            <div class="col-6"><span class="float-end text-primary cursor-pointer" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" role="button">column visible setting</span></div>
+        </div>
+        <div class="list-area position-relative"  style="width:3500px; height:1000px">
+            <table id="table1" class="table table-bordered table-hover table-sm ">
+              <thead  class="bg-light sticky-top top-0">
+                <tr class="text-center align-middle table-warning">
+                  <th scope="col">#</th>
+                  <th scope="col">Company</th>
+                  <th scope="col">PO #</th>
+                  <th scope="col">PO Order Day</th>
+                  <th scope="col">WOY</th>
+                  
+                  <th scope="col">Gtin13</th>
+                  <th scope="col">Retailer Item #</th>
+                  <th scope="col">Vendor Item #</th>
+                  <th scope="col">Retail Item Name</th>
+                  
+                  <th scope="col">Qty(pack)</th>
+                  <th scope="col">Qty(carton)</th>
+                  <th scope="col">Unit Price</th>
+                  <th scope="col">Price</th>
+                  
+                  <th scope="col">Allowance1</th>
+                  <th scope="col">Allowance2</th>
+                  <th scope="col">Real Price</th>
+                  
+                  <th scope="col">DC #</th>
+                  <th scope="col">Bt Name</th>
+                  <th scope="col">BT Address</th>
+                  <th scope="col">BT Gln</th>
+                  <th scope="col">Carrier Detail</th>
+                  
+                  <th scope="col">Ship Payment</th>
+                  <th scope="col">Ship Not Before</th>
+                  <th scope="col">Ship No Later</th>
+                  <th scope="col">Must Arrive By</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+              
+              
+                              
+              
+                <tr>
+                  <td scope="row">1</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">1130042255</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360851</td>
+                  <td scope="row" class="text-center">658517852</td>
+                  <td scope="row" class="text-center">M60851</td>
+                  <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">30</td>
+                  <td scope="row" class="text-center">5</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">64.5</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">1.0</td>
+                  <td scope="row" class="text-center">63.5</td>
+    
+                  <td scope="row" class="text-center">6035</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6035A-ASM DIS</td>
+                  <td scope="row" class="text-center">[3220 NEVADA TERRACE], OTTAWA, KS, 66067, US</td>
+                  <td scope="row" class="text-center">0078742030807</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-10</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">1</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">1130042255</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360516</td>
+                  <td scope="row" class="text-center">658517853</td>
+                  <td scope="row" class="text-center">M60516</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">54</td>
+                  <td scope="row" class="text-center">9</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">116.1</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">116.1</td>
+    
+                  <td scope="row" class="text-center">6035</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6035A-ASM DIS</td>
+                  <td scope="row" class="text-center">[3220 NEVADA TERRACE], OTTAWA, KS, 66067, US</td>
+                  <td scope="row" class="text-center">0078742030807</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-10</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">1</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">1130042255</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360523</td>
+                  <td scope="row" class="text-center">658517851</td>
+                  <td scope="row" class="text-center">P60523</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">30</td>
+                  <td scope="row" class="text-center">5</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">64.5</td>
+                  
+                  <td scope="row" class="text-center">0.24</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">64.26</td>
+    
+                  <td scope="row" class="text-center">6035</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6035A-ASM DIS</td>
+                  <td scope="row" class="text-center">[3220 NEVADA TERRACE], OTTAWA, KS, 66067, US</td>
+                  <td scope="row" class="text-center">0078742030807</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-10</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">2</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">1180121872</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360851</td>
+                  <td scope="row" class="text-center">658517852</td>
+                  <td scope="row" class="text-center">M60851</td>
+                  <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">102</td>
+                  <td scope="row" class="text-center">17</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">219.3</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">1.0</td>
+                  <td scope="row" class="text-center">218.3</td>
+    
+                  <td scope="row" class="text-center">6068</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6068A-ASM DIS</td>
+                  <td scope="row" class="text-center">[221 LOIS RD], SANGER, TX, 76266, US</td>
+                  <td scope="row" class="text-center">0078742033907</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-12</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">2</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">1180121872</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360523</td>
+                  <td scope="row" class="text-center">658517851</td>
+                  <td scope="row" class="text-center">P60523</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">108</td>
+                  <td scope="row" class="text-center">18</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">232.2</td>
+                  
+                  <td scope="row" class="text-center">0.24</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">231.96</td>
+    
+                  <td scope="row" class="text-center">6068</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6068A-ASM DIS</td>
+                  <td scope="row" class="text-center">[221 LOIS RD], SANGER, TX, 76266, US</td>
+                  <td scope="row" class="text-center">0078742033907</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-12</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">2</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">1180121872</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360516</td>
+                  <td scope="row" class="text-center">658517853</td>
+                  <td scope="row" class="text-center">M60516</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">192</td>
+                  <td scope="row" class="text-center">32</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">412.8</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">412.8</td>
+    
+                  <td scope="row" class="text-center">6068</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6068A-ASM DIS</td>
+                  <td scope="row" class="text-center">[221 LOIS RD], SANGER, TX, 76266, US</td>
+                  <td scope="row" class="text-center">0078742033907</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-12</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">3</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">1879339208</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360851</td>
+                  <td scope="row" class="text-center">658517852</td>
+                  <td scope="row" class="text-center">M60851</td>
+                  <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">72</td>
+                  <td scope="row" class="text-center">12</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">154.8</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">1.0</td>
+                  <td scope="row" class="text-center">153.8</td>
+    
+                  <td scope="row" class="text-center">6020</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6020A-ASM DIS</td>
+                  <td scope="row" class="text-center">[4224 KETTERING ROAD], BROOKSVILLE, FL, 34602, US</td>
+                  <td scope="row" class="text-center">0078742029542</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-14</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">3</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">1879339208</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360516</td>
+                  <td scope="row" class="text-center">658517853</td>
+                  <td scope="row" class="text-center">M60516</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">60</td>
+                  <td scope="row" class="text-center">10</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">129.0</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">129.0</td>
+    
+                  <td scope="row" class="text-center">6020</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6020A-ASM DIS</td>
+                  <td scope="row" class="text-center">[4224 KETTERING ROAD], BROOKSVILLE, FL, 34602, US</td>
+                  <td scope="row" class="text-center">0078742029542</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-14</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">3</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">1879339208</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360523</td>
+                  <td scope="row" class="text-center">658517851</td>
+                  <td scope="row" class="text-center">P60523</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">96</td>
+                  <td scope="row" class="text-center">16</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">206.4</td>
+                  
+                  <td scope="row" class="text-center">0.24</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">206.16</td>
+    
+                  <td scope="row" class="text-center">6020</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6020A-ASM DIS</td>
+                  <td scope="row" class="text-center">[4224 KETTERING ROAD], BROOKSVILLE, FL, 34602, US</td>
+                  <td scope="row" class="text-center">0078742029542</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-14</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">4</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">2929626049</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360851</td>
+                  <td scope="row" class="text-center">658517852</td>
+                  <td scope="row" class="text-center">M60851</td>
+                  <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">42</td>
+                  <td scope="row" class="text-center">7</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">90.3</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">1.0</td>
+                  <td scope="row" class="text-center">89.3</td>
+    
+                  <td scope="row" class="text-center">6019</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6019A-ASM DIS</td>
+                  <td scope="row" class="text-center">[7504 EAST CROSSROADS BOULEVARD], LOVELAND, CO, 80538, US</td>
+                  <td scope="row" class="text-center">0078742029450</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-15</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">4</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">2929626049</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360516</td>
+                  <td scope="row" class="text-center">658517853</td>
+                  <td scope="row" class="text-center">M60516</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">30</td>
+                  <td scope="row" class="text-center">5</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">64.5</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">64.5</td>
+    
+                  <td scope="row" class="text-center">6019</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6019A-ASM DIS</td>
+                  <td scope="row" class="text-center">[7504 EAST CROSSROADS BOULEVARD], LOVELAND, CO, 80538, US</td>
+                  <td scope="row" class="text-center">0078742029450</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-15</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">4</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">2929626049</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360523</td>
+                  <td scope="row" class="text-center">658517851</td>
+                  <td scope="row" class="text-center">P60523</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">54</td>
+                  <td scope="row" class="text-center">9</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">116.1</td>
+                  
+                  <td scope="row" class="text-center">0.24</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">115.86</td>
+    
+                  <td scope="row" class="text-center">6019</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6019A-ASM DIS</td>
+                  <td scope="row" class="text-center">[7504 EAST CROSSROADS BOULEVARD], LOVELAND, CO, 80538, US</td>
+                  <td scope="row" class="text-center">0078742029450</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-15</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">5</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">2980052283</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360851</td>
+                  <td scope="row" class="text-center">658517852</td>
+                  <td scope="row" class="text-center">M60851</td>
+                  <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">30</td>
+                  <td scope="row" class="text-center">5</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">64.5</td>
+                  
+                  <td scope="row" class="text-center">0.24</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">64.26</td>
+    
+                  <td scope="row" class="text-center">6043</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6043A-ASM DIS</td>
+                  <td scope="row" class="text-center">[492 JONESVILLE ROAD], COLDWATER, MI, 49036, US</td>
+                  <td scope="row" class="text-center">0078742031521</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-14</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">6</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">7629923143</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360516</td>
+                  <td scope="row" class="text-center">658517853</td>
+                  <td scope="row" class="text-center">M60516</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">108</td>
+                  <td scope="row" class="text-center">18</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">232.2</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">1.0</td>
+                  <td scope="row" class="text-center">231.2</td>
+    
+                  <td scope="row" class="text-center">6037</td>
+                  <td scope="row" class="text-center">WAL-MART WAREHOUSE 6037</td>
+                  <td scope="row" class="text-center">[2650 HWY 395 SOUTH], HERMISTON, OR, 97838, US</td>
+                  <td scope="row" class="text-center">0078742030982</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-16</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">6</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">7629923143</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360851</td>
+                  <td scope="row" class="text-center">658517852</td>
+                  <td scope="row" class="text-center">M60851</td>
+                  <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">108</td>
+                  <td scope="row" class="text-center">18</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">232.2</td>
+                  
+                  <td scope="row" class="text-center">0.24</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">231.96</td>
+    
+                  <td scope="row" class="text-center">6037</td>
+                  <td scope="row" class="text-center">WAL-MART WAREHOUSE 6037</td>
+                  <td scope="row" class="text-center">[2650 HWY 395 SOUTH], HERMISTON, OR, 97838, US</td>
+                  <td scope="row" class="text-center">0078742030982</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-16</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">7</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">7779685271</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360523</td>
+                  <td scope="row" class="text-center">658517851</td>
+                  <td scope="row" class="text-center">P60523</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">78</td>
+                  <td scope="row" class="text-center">13</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">167.7</td>
+                  
+                  <td scope="row" class="text-center">0.24</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">167.46</td>
+    
+                  <td scope="row" class="text-center">6025</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6025A-ASM DIS</td>
+                  <td scope="row" class="text-center">[6140 3M DRIVE], MENOMONIE, WI, 54751, US</td>
+                  <td scope="row" class="text-center">0078742029993</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-15</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">8</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">7830002470</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360851</td>
+                  <td scope="row" class="text-center">658517852</td>
+                  <td scope="row" class="text-center">M60851</td>
+                  <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">60</td>
+                  <td scope="row" class="text-center">10</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">129.0</td>
+                  
+                  <td scope="row" class="text-center">0.24</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">128.76</td>
+    
+                  <td scope="row" class="text-center">6012</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6012A-ASM DIS</td>
+                  <td scope="row" class="text-center">[3100 NORTH I-27], PLAINVIEW, TX, 79072, US</td>
+                  <td scope="row" class="text-center">0078742028828</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-14</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">8</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">7830002470</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360516</td>
+                  <td scope="row" class="text-center">658517853</td>
+                  <td scope="row" class="text-center">M60516</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">72</td>
+                  <td scope="row" class="text-center">12</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">154.8</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">1.0</td>
+                  <td scope="row" class="text-center">153.8</td>
+    
+                  <td scope="row" class="text-center">6012</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6012A-ASM DIS</td>
+                  <td scope="row" class="text-center">[3100 NORTH I-27], PLAINVIEW, TX, 79072, US</td>
+                  <td scope="row" class="text-center">0078742028828</td>
+                  <td scope="row" class="text-center">SRL</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-14</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">9</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">7929654750</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360516</td>
+                  <td scope="row" class="text-center">658517853</td>
+                  <td scope="row" class="text-center">M60516</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">12</td>
+                  <td scope="row" class="text-center">2</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">25.8</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">25.8</td>
+    
+                  <td scope="row" class="text-center">6018</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6018A-ASM DIS</td>
+                  <td scope="row" class="text-center">[2103 SOUTH MAIN], SEARCY, AR, 72143, US</td>
+                  <td scope="row" class="text-center">0078742029368</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-13</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">9</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">7929654750</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360851</td>
+                  <td scope="row" class="text-center">658517852</td>
+                  <td scope="row" class="text-center">M60851</td>
+                  <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">6</td>
+                  <td scope="row" class="text-center">1</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">12.9</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">1.0</td>
+                  <td scope="row" class="text-center">11.9</td>
+    
+                  <td scope="row" class="text-center">6018</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6018A-ASM DIS</td>
+                  <td scope="row" class="text-center">[2103 SOUTH MAIN], SEARCY, AR, 72143, US</td>
+                  <td scope="row" class="text-center">0078742029368</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-13</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">9</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">7929654750</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360523</td>
+                  <td scope="row" class="text-center">658517851</td>
+                  <td scope="row" class="text-center">P60523</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">66</td>
+                  <td scope="row" class="text-center">11</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">141.9</td>
+                  
+                  <td scope="row" class="text-center">0.24</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">141.66</td>
+    
+                  <td scope="row" class="text-center">6018</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6018A-ASM DIS</td>
+                  <td scope="row" class="text-center">[2103 SOUTH MAIN], SEARCY, AR, 72143, US</td>
+                  <td scope="row" class="text-center">0078742029368</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-13</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">10</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">8079982253</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360516</td>
+                  <td scope="row" class="text-center">658517853</td>
+                  <td scope="row" class="text-center">M60516</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">30</td>
+                  <td scope="row" class="text-center">5</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">64.5</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">64.5</td>
+    
+                  <td scope="row" class="text-center">6023</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6023A-ASM DIS</td>
+                  <td scope="row" class="text-center">[21504 COX ROAD], SUTHERLAND, VA, 23885, US</td>
+                  <td scope="row" class="text-center">0078742029818</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-14</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">10</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">8079982253</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360851</td>
+                  <td scope="row" class="text-center">658517852</td>
+                  <td scope="row" class="text-center">M60851</td>
+                  <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">60</td>
+                  <td scope="row" class="text-center">10</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">129.0</td>
+                  
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">1.0</td>
+                  <td scope="row" class="text-center">128.0</td>
+    
+                  <td scope="row" class="text-center">6023</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6023A-ASM DIS</td>
+                  <td scope="row" class="text-center">[21504 COX ROAD], SUTHERLAND, VA, 23885, US</td>
+                  <td scope="row" class="text-center">0078742029818</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-14</td>
+    
+                </tr>
+              
+                <tr>
+                  <td scope="row">10</td>
+                  <td scope="row">WalMart</td>
+                  <td scope="row" class="text-center">8079982253</td>
+                  <td scope="row" class="text-center">2023-08-02</td>
+                  <td scope="row" class="text-center">27</td>
+    
+                  <td scope="row" class="text-center">8809729360523</td>
+                  <td scope="row" class="text-center">658517851</td>
+                  <td scope="row" class="text-center">P60523</td>
+                  <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz*4</td>
+                  
+                  <td scope="row" class="text-center">24</td>
+                  <td scope="row" class="text-center">4</td>
+                  <td scope="row" class="text-center">2.15</td>
+                  <td scope="row" class="text-center">51.6</td>
+                  
+                  <td scope="row" class="text-center">0.24</td>
+                  <td scope="row" class="text-center">0.0</td>
+                  <td scope="row" class="text-center">51.36</td>
+    
+                  <td scope="row" class="text-center">6023</td>
+                  <td scope="row" class="text-center">WAL-MART DC 6023A-ASM DIS</td>
+                  <td scope="row" class="text-center">[21504 COX ROAD], SUTHERLAND, VA, 23885, US</td>
+                  <td scope="row" class="text-center">0078742029818</td>
+                  <td scope="row" class="text-center">SEE SM PKG INFO</td>
+                  
+                  <td scope="row" class="text-center">PP</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-05</td>
+                  <td scope="row" class="text-center">2023-08-14</td>
+    
+                </tr>
+              
+              
+              </tbody>
+            </table>	
+        </div>          
+    </main>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">Field Visible</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="list-group">
+          <li class="list-group-item"><input type="checkbox" data-field-no="6"  checked id="visible-Gtin13"> <label for="visible-Gtin13">Gtin13</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="7"  checked id="visible-RetailerItem"> <label for="visible-RetailerItem">Retailer Item #</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="8"  checked id="visible-VendorItem"> <label for="visible-VendorItem">Vendor Item #</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="9"  checked id="visible-RetailItemName"> <label for="visible-RetailItemName">Retail Item Name</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="10" checked id="visible-QtyPack"> <label for="visible-QtyPack">Qty(pack)</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="11" checked id="visible-QtyCcarton"> <label for="visible-QtyCarton">Qty(carton)</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="12" checked id="visible-UnitPrice"> <label for="visible-UnitPrice">Unit Price</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="13" checked id="visible-Price"> <label for="visible-Price">Price</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="14" checked id="visible-Allowance1"> <label for="visible-Allowance1">Allowance1</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="15" checked id="visible-Allowance2"> <label for="visible-Allowance2">Allowance2</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="16" checked id="visible-RealPrice"> <label for="visible-RealPrice">Real Price</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="17" checked id="visible-DcNo"> <label for="visible-DcNo">Dc #</label></li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="18" checked id="visible-BtName"> <label for="visible-BtName">Bt Name</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="19" checked id="visible-BTAddress"> <label for="visible-BTAddress">BT Address</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="20" checked id="visible-BTGln"> <label for="visible-BTGln">BT Gln</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="21" checked id="visible-CarrierDetail"> <label for="visible-CarrierDetail">Carrier Detail</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="22" checked id="visible-ShipPayment"> <label for="visible-ShipPayment">Ship Payment</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="23" checked id="visible-ShipNotBefore"> <label for="visible-ShipNotBefore">Ship Not Before</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="24" checked id="visible-ShipNoLater"> <label for="visible-ShipNoLater">Ship No Later</label> </li>
+          <li class="list-group-item"><input type="checkbox" data-field-no="25" checked id="visible-MustArriveBy"> <label for="visible-MustArriveBy">Must Arrive By</label> </li>
+        </ul>
+      </div>
+    </div>
+   
+    <footer class="footer">
+      <div class="footer-menu">
+      </div> 
+    </footer>
+    
+    <!-- jquery, bootstrap script -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    
+    <!-- jqvalidator, handlebar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqwidgets/17.0.1/jqwidgets/jqx-all.js" integrity="sha512-KlJukoevfKgPqd9bJRAuzvuaU177/lFPb9GoXLr4neUSlvZMBtlGlfk9C2AFPD3bvaot0Cw7iHOrsCOdXUycPA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js"></script>
+
+    <!-- bootbox, bootstrap-table -->
+    <script src="css/bootbox.all.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
+    <script src="js/common.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $(".btnColumnHide").on('click', function(){
+      $('#table1 th:nth-child(2)').hide();
+      $('#table1 td:nth-child(2)').hide();
+    });
+    $(".ymd").datepicker({
+      language : "ko"
+    })
+    $('.btnExcel').on('click', function(){
+        // bootbox.alert('Hello world!', function() {
+        //                 console.log('Alert Callback');
+        // });
+        //bootbox.alert('bootboxjs alert');
+
+        bootbox.confirm({
+            title : '확인',
+            size: 'small',
+            message: '삭제하시겠습니까?',
+            callback: function(result) { 
+                if(result){
+                    console.log('삭제합니다');
+                }
+            }
+       });
+    });
+
+    //offcanvase = visible field
+    $('#offcanvasRight').on('hidden.bs.offcanvas', function(){
+      console.log('offcanvas hidding...');
+      $('.offcanvas-body').find('input:checkbox').each(function(idx, chk){
+          var no = $(chk).data('field-no');
+          var visible = $(chk).prop('checked');
+          if(visible) {
+            var th = "#table1 th:nth-child(%s)".format(no);
+            var td = "#table1 td:nth-child(%s)".format(no);
+            $(th).show();
+            $(td).show();
+          }else{
+            var th = "#table1 th:nth-child(%s)".format(no);
+            var td = "#table1 td:nth-child(%s)".format(no);
+            $(th).hide();
+            $(td).hide();
+          }
+      });
+
+      // var hideNumbers = $('.offcanvas-body').find('input:checkbox:not(:checked)').map(function(){
+      //     $(this).data('field-no');
+      // });
+      // console.log(hideNumbers);
+      // hideNumbers.each(function(index, item){
+      //     var no = item;
+      //     var th = "#table1 th:nth-child(%s)".format(item);
+      //     var td = "#table1 td:nth-child(%s)".format(item);
+      //     $(th).hide();
+      //     $(td).hide();
+      // });
+    });
+
+  });
+</script>
+</body>
+
+</html>
