@@ -19,6 +19,13 @@
   <!-- bootstrap-table -->
   <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css">  
   <link rel="stylesheet" href="css/custom.css">
+  <style>
+
+    
+    .border-bottom-red {
+       border-bottom: 1pt solid red;
+    }
+  </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-dark">
@@ -41,11 +48,9 @@
                              <li><a class="dropdown-item" href='/Julia/edi/list/810'>Invoice (810)</a></li>
                              <li><a class="dropdown-item" href='/Julia/edi/list/850'>Purchase Order (850)</a></li>
                              <li><a class="dropdown-item" href='/Julia/edi/list/945'>Warehouse Shipping Advice (945)</a></li>
-                             <!-- 
                              <li><a class="dropdown-item" href='/Julia/edi/list/846'>Inventory Inquiry (846)</a></li>
                              <li><a class="dropdown-item" href='/Julia/edi/list/940'>Warehouse Shipping Order (940)</a></li>
                              <li><a class="dropdown-item" href='/Julia/edi/list/944'>Warehouse Stock Transfer Receipt Advice (944)</a></li>
-                              -->
                          </ul>
                      </li>
                   <li class="nav-item dropdown">
@@ -154,6 +159,7 @@
             <div class="col-6">조회된 갯수 : <span id="listSize">24</span></div>
             <div class="col-6"><span class="float-end text-primary cursor-pointer" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" role="button">column visible setting</span></div>
         </div>
+        </div>
         <div class="list-area position-relative"  style="width:3500px; height:1000px">
             <table id="table1" class="table table-bordered table-hover table-sm ">
               <thead  class="bg-light sticky-top top-0">
@@ -192,11 +198,7 @@
                 </tr>
               </thead>
               <tbody>
-              
-              
-                              
-              
-                <tr>
+                <tr class="border-bottom-red">
                   <td scope="row">1</td>
                   <td scope="row">WalMart</td>
                   <td scope="row" class="text-center">1130042255</td>
@@ -1073,6 +1075,15 @@
 
 <script>
   $(document).ready(function () {
+    $('.dropdown').on('show.bs.dropdown',function(){
+      console.log('drop down show')
+      $('table thead').removeClass('sticky-top').removeClass('top-0');
+    });
+    $('.dropdown').on('hide.bs.dropdown',function(){
+      console.log('drop down hide')
+      $('table thead').addClass('sticky-top').addClass('top-0');
+    });
+
     // 날짜범위선택
     // $('#btnDateRange').on('click', function(){
     //   $('#collapseDateRange').toggle();
@@ -1086,8 +1097,6 @@
 
     //   $('#collapseDateRange').toggle();      
     // });
-    
-
     $(".btnColumnHide").on('click', function(){
       $('#table1 th:nth-child(2)').hide();
       $('#table1 td:nth-child(2)').hide();
