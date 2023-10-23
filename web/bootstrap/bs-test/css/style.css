@@ -1,0 +1,8 @@
+.container {
+    border: 1px dashed #bcbcbc;
+}
+div {
+    border: solid red 1px;
+    background-color: beige;
+    opacity: 0.8;
+}
