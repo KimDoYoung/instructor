@@ -231,7 +231,32 @@ var JuliaUtil = (function(){
     var toNumber = function(str) {
         var str = str.replaceAll(/[^0-9.+-]/g,'');
         return Number(str);
-    }    
+    } 
+    var copyToClipboard = function(text) {
+        try {
+            navigator.clipboard.writeText(text);
+            console.log('Content copied to clipboard');
+          } catch (err) {
+            console.error('Failed to copy: ', err);
+          }
+    } 
+    var tableToClipboard = (tableId) => {
+        var $table = $('#'+tableId);
+        if($table == false) return "";
+        var s = '';
+        var headers = $table.find('thead tr th').each((idx,th)=>{
+          console.log(th);
+          s += $(th).text() + "\t";
+        });
+        if(s) s+= "\n";
+        var rows = $table.find('tbody tr').each( (idx,tr) => {
+          $(tr).find('td').each( (idx,td) => {
+            s += $(td).text() + "\t";
+          });
+          s += "\n";
+        });
+        return s;
+      }  
     return {
         isString : isString,
         isNumber : isNumber,
@@ -258,7 +283,8 @@ var JuliaUtil = (function(){
         popupWindow : popupWindow,
         formToJson : formToJson,
         displayYmd : displayYmd, 
-        toNumber   : toNumber
+        toNumber   : toNumber,
+        copyToClipboard : copyToClipboard
     };    
 })();
 
