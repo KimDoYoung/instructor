@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bs-0</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="text-center fw-bold text-bg-secondary my-3 mx-5">vstack and gap</div>
+        <div class="vstack gap-1">
+            <div class="bg-info">3층</div>
+            <div class="bg-success">2층</div>
+            <div class="bg-warning">1층</div>
+        </div>
+        <div class="text-center fw-bold text-bg-secondary my-3 mx-5">sizing, spaces, borders</div>
+        <p class="blockquote">25,50,70,auto</p>
+        <div class="w-25 bg-dark text-white">w-25</div>
+        <div class="w-75 bg-success text-white">w-75</div>
+
+        <!-- border -->
+        <p class="blockquote">border</p>
+        <div class="d-flex">
+            <div class="d-inline-block me-5 bg-light border  border-dark" style="width:100px;height:100px;">
+                border
+            </div>
+            <div class="d-inline-block me-5 bg-light border-start border-2 text-center" style="width:100px;height:100px;">
+                border left
+            </div>
+        </div>
+        <!-- round -->
+        <p class="blockquote">rounded</p>
+        <div class="d-flex">
+            <div class="d-inline-block me-5 bg-light border-warning rounded" style="width:100px;height:100px;">
+                11
+            </div>
+            <div class="d-inline-block me-5 bg-light border-top  border-dark rounded-5 rounded-top" style="width:100px;height:100px;">
+                22
+            </div>
+            <div class="d-inline-block me-5 border rounded-circle text-center" style="width:100px;height:100px;">
+                33
+            </div>
+        </div>
+        <!-- shadow -->
+        <p class="blockquote">rounded</p>
+        <div class="d-flex">
+            <div class="d-inline-block me-5 bg-light shadow" style="width:100px;height:100px;">
+                shadow
+            </div>
+            <div class="d-inline-block me-5 bg-light shadow-none" style="width:100px;height:100px;">
+                shadow-none            
+            </div>
+            <div class="d-inline-block me-5 bg-light shadown-sm" style="width:100px;height:100px;">
+                shadown-sm
+            </div>
+            <div class="d-inline-block me-5 bg-light shadow-lg" style="width:100px;height:100px;">
+                shadow-lg
+            </div>
+        </div>
+    </div>    
+
+    <!-- bootstrap, popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- custom -->
+    <script src="js/my.js"></script>
+</body>
+</html>
