@@ -1,0 +1,462 @@
+
+
+   
+
+
+
+
+
+    
+<!DOCTYPE html>
+<html>
+<head>
+<!-- =================================================== -->
+
+
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <!-- jquery.js -->
+ <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+ <!-- css : bootstrap datepicker icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">    
+<link rel="stylesheet" href='julia.css'> 
+<!-- =================================================== -->
+<title>Codes-Stocks</title>
+</head>
+<body>
+<!-- =================================================== -->
+
+
+
+<style>
+
+header.sticky {
+    z-index: 100;
+}
+</style>
+<header class="sticky">
+<nav class="navbar navbar-expand-lg bg-dark">
+     <div class="container-fluid">
+         <a class="navbar-brand text-warning fw-bold" href='/Julia/main'>FBH-EDI Management</a>
+         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+             aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                 <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                         aria-expanded="false" style="color:#DECEFE">
+                         EDI-Documents
+                     </a>
+                     <ul class="dropdown-menu">
+                         <li><a class="dropdown-item" href='/Julia/edi/list/210'>Hub Invoice (210)</a></li>
+                         <li><a class="dropdown-item" href='/Julia/edi/list/810'>Invoice (810)</a></li>
+                         <li><a class="dropdown-item" href='/Julia/edi/list/850'>Purchase Order (850)</a></li>
+                         <li><a class="dropdown-item" href='/Julia/edi/list/945'>Warehouse Shipping Advice (945)</a></li>
+                         <div class="dropdown-divider"></div>
+                         <li><a class="dropdown-item" href='/Julia/edi/list/aging-origin'>Aging Original</a></li>
+                         <!-- 
+                         <li><a class="dropdown-item" href='/Julia/edi/list/846'>Inventory Inquiry (846)</a></li>
+                         <li><a class="dropdown-item" href='/Julia/edi/list/940'>Warehouse Shipping Order (940)</a></li>
+                         <li><a class="dropdown-item" href='/Julia/edi/list/944'>Warehouse Stock Transfer Receipt Advice (944)</a></li>
+                          -->
+                     </ul>
+                 </li>
+              <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                         aria-expanded="false" style="color:#DECEFE">
+                         Edi-Business
+                     </a>
+                     <ul class="dropdown-menu">
+                         <li><a class="dropdown-item" href='/Julia/edi/biz/diff850945'>Diff 850-945</a></li>
+                         <li><a class="dropdown-item" href='/Julia/edi/biz/po-trace'>PO Trace</a></li>
+                         <li><a class="dropdown-item" href='/Julia/edi/biz/inventory-summary'>Inventory Summary</a></li>
+                     </ul>
+                 </li>                 
+                 <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                         aria-expanded="false" style="color:#DECEFE">
+                         Codes
+                     </a>
+                     <ul class="dropdown-menu">
+                         <li><a class="dropdown-item" href='/Julia/codes/company'>Company</a></li>
+                         <li><a class="dropdown-item" href='/Julia/codes/edi-code'>Edi Code</a></li>
+                         <li><a class="dropdown-item" href='/Julia/codes/stocks'>Stocks</a></li>
+                         <li><a class="dropdown-item" href='/Julia/codes/week-of-year'>week of year(Kroger)</a></li>
+                     </ul>
+                 </li>
+				                 
+             </ul>
+         <div  class="d-flex">
+			
+		    <a href='/Julia/logout' title="logout"><i class="bi bi-box-arrow-right"></i></a>
+         </div>
+       </div>
+     </div>
+ </nav>
+</header>
+<!-- =================================================== -->
+<main class="container">
+	<h1 class="display-6 text-center">Codes-Stocks</h1>
+
+ 	<div class="row">
+ 		<div class="col-12 d-inline"> 
+            <div class="btn-group  float-end" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-success"><i class="bi bi-file-spreadsheet"></i> excel</button>
+                <button type="button" class="btn btn-warning"><i class="bi bi-clipboard"></i> clipboard</button>                
+            </div>
+ 		</div>
+ 	</div>
+	<div class="list-area">
+		<table class="table table-bordered table-hover table-sm">
+		  <thead>
+		    <tr class="text-center table-warning">
+		      <th scope="col">Stock #</th>
+		      <th scope="col">Hub</th>
+		      <th scope="col">UPC</th>
+		      
+		      <th scope="col">Gtin</th>
+		      <th scope="col">Stk #</th>
+		      
+		      <th scope="col">Retail Item #</th>
+		      <th scope="col">Retail Item Name</th>
+		      
+		      <th scope="col">Company Id</th>
+		      <th scope="col">Usable</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">60516</td>
+		      <td scope="row" class="text-center">Walmart</td>
+		      <td scope="row" class="text-center">8809729360516</td>
+		      
+		      <td scope="row" class="text-center">18809729360513</td>
+		      <td scope="row" class="text-center">M60516</td>
+
+		      <td scope="row" class="text-center">658517853</td>
+		      <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+
+		      <td scope="row" class="text-center">1</td>
+		      <td scope="row" class="text-center">Y</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">60523</td>
+		      <td scope="row" class="text-center">Walmart</td>
+		      <td scope="row" class="text-center">8809729360523</td>
+		      
+		      <td scope="row" class="text-center">18809729360520</td>
+		      <td scope="row" class="text-center">P60523</td>
+
+		      <td scope="row" class="text-center">658517851</td>
+		      <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz*4</td>
+
+		      <td scope="row" class="text-center">1</td>
+		      <td scope="row" class="text-center">Y</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">60851</td>
+		      <td scope="row" class="text-center">Walmart</td>
+		      <td scope="row" class="text-center">8809729360851</td>
+		      
+		      <td scope="row" class="text-center">18809729360858</td>
+		      <td scope="row" class="text-center">M60851</td>
+
+		      <td scope="row" class="text-center">658517852</td>
+		      <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+
+		      <td scope="row" class="text-center">1</td>
+		      <td scope="row" class="text-center">Y</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">61216</td>
+		      <td scope="row" class="text-center">Walmart.com</td>
+		      <td scope="row" class="text-center">8809729361216</td>
+		      
+		      <td scope="row" class="text-center">18809729361213 (N/A)</td>
+		      <td scope="row" class="text-center">M61216</td>
+
+		      <td scope="row" class="text-center">663454272</td>
+		      <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz??24counts</td>
+
+		      <td scope="row" class="text-center">2</td>
+		      <td scope="row" class="text-center">Y</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">61223</td>
+		      <td scope="row" class="text-center">Walmart.com</td>
+		      <td scope="row" class="text-center">8809729361223</td>
+		      
+		      <td scope="row" class="text-center">18809729361220 (N/A)</td>
+		      <td scope="row" class="text-center">P61223</td>
+
+		      <td scope="row" class="text-center">663454269</td>
+		      <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz?24counts</td>
+
+		      <td scope="row" class="text-center">2</td>
+		      <td scope="row" class="text-center">Y</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">61230</td>
+		      <td scope="row" class="text-center">Walmart.com</td>
+		      <td scope="row" class="text-center">8809729361230</td>
+		      
+		      <td scope="row" class="text-center">18809729361237 (N/A)</td>
+		      <td scope="row" class="text-center">M61230</td>
+
+		      <td scope="row" class="text-center">663454270</td>
+		      <td scope="row" class="text-start">Sunkist Fruit Cups Mandarin Orange 4oz??24counts</td>
+
+		      <td scope="row" class="text-center">2</td>
+		      <td scope="row" class="text-center">Y</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">61247</td>
+		      <td scope="row" class="text-center">Walmart.com</td>
+		      <td scope="row" class="text-center">8809729361247</td>
+		      
+		      <td scope="row" class="text-center">18809729361244 (N/A)</td>
+		      <td scope="row" class="text-center">P61247</td>
+
+		      <td scope="row" class="text-center"></td>
+		      <td scope="row" class="text-start">Sunkist Fruit Cups Peach 4oz??24counts</td>
+
+		      <td scope="row" class="text-center">2</td>
+		      <td scope="row" class="text-center">N</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">60513</td>
+		      <td scope="row" class="text-center">Kroger</td>
+		      <td scope="row" class="text-center">8809729360516</td>
+		      
+		      <td scope="row" class="text-center">18809729360513</td>
+		      <td scope="row" class="text-center">M60513</td>
+
+		      <td scope="row" class="text-center">0282079</td>
+		      <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+
+		      <td scope="row" class="text-center">3</td>
+		      <td scope="row" class="text-center">Y</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">60520</td>
+		      <td scope="row" class="text-center">Kroger</td>
+		      <td scope="row" class="text-center">8809729360523</td>
+		      
+		      <td scope="row" class="text-center">18809729360520</td>
+		      <td scope="row" class="text-center">P60520</td>
+
+		      <td scope="row" class="text-center">0285957</td>
+		      <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz*4</td>
+
+		      <td scope="row" class="text-center">3</td>
+		      <td scope="row" class="text-center">Y</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">60858</td>
+		      <td scope="row" class="text-center">Kroger</td>
+		      <td scope="row" class="text-center">8809729360851</td>
+		      
+		      <td scope="row" class="text-center">18809729360858</td>
+		      <td scope="row" class="text-center">M60858</td>
+
+		      <td scope="row" class="text-center">0285908</td>
+		      <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+
+		      <td scope="row" class="text-center">3</td>
+		      <td scope="row" class="text-center">Y</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">60512</td>
+		      <td scope="row" class="text-center">Target</td>
+		      <td scope="row" class="text-center">8809729360516</td>
+		      
+		      <td scope="row" class="text-center">18809729360513</td>
+		      <td scope="row" class="text-center">M60512</td>
+
+		      <td scope="row" class="text-center"></td>
+		      <td scope="row" class="text-start">Sunkist Fruit Cups Mango 4oz*4</td>
+
+		      <td scope="row" class="text-center"></td>
+		      <td scope="row" class="text-center">N</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">60525</td>
+		      <td scope="row" class="text-center">Target</td>
+		      <td scope="row" class="text-center">8809729360523</td>
+		      
+		      <td scope="row" class="text-center">18809729360520</td>
+		      <td scope="row" class="text-center">P60525</td>
+
+		      <td scope="row" class="text-center"></td>
+		      <td scope="row" class="text-start">Sunkist Fruit Cups Pineapple 4oz*4</td>
+
+		      <td scope="row" class="text-center"></td>
+		      <td scope="row" class="text-center">N</td>
+		      
+		    </tr>
+		   
+		    <tr>
+		      <td scope="row" class="text-center">60853</td>
+		      <td scope="row" class="text-center">Target</td>
+		      <td scope="row" class="text-center">8809729360851</td>
+		      
+		      <td scope="row" class="text-center">18809729360858</td>
+		      <td scope="row" class="text-center">M60853</td>
+
+		      <td scope="row" class="text-center"></td>
+		      <td scope="row" class="text-start">Sunkist Fruit cup Mandarin Orange 4oz*4</td>
+
+		      <td scope="row" class="text-center"></td>
+		      <td scope="row" class="text-center">N</td>
+		      
+		    </tr>
+		  
+		  </tbody>
+		</table>	
+	</div>
+</main>
+<!-- =================================================== -->
+
+<footer class="footer">
+	<div class="footer-menu">
+	</div> 
+</footer>
+<!-- loading layer -->
+<div class="container-fluid mt-5" id="julia-loading-div">
+    <div class="row">
+        <div class="col d-flex align-items-center justify-content-center vh-100">
+        <div class="spinner-border text-secondary" role="status">
+        </div>
+        <span class="m-2"> Please Wait... </span>
+        </div>
+    </div>
+</div>
+
+<!--  popperjs, bootstrap  -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+<!-- jqvalidator, handlebar -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqwidgets/17.0.1/jqwidgets/jqx-all.js" integrity="sha512-KlJukoevfKgPqd9bJRAuzvuaU177/lFPb9GoXLr4neUSlvZMBtlGlfk9C2AFPD3bvaot0Cw7iHOrsCOdXUycPA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js"></script>
+
+<!-- bootboxjs -->
+<script src='/Julia/js/lib/bootbox.all.min.js'></script>
+
+<!-- assetì í¸ë¦¬í° -->
+<script type="text/javascript" src='/Julia/js/common.js'></script>
+<script type="text/javascript" src='/Julia/js/input-format.js'></script>
+<!-- -================================================== -->
+<script>
+function getQueryData(){
+ var data = {
+	searchText : $('#searchText').val(), 
+	frYmd : $('#frYmd').val(),
+	toYmd : $('#toYmd').val(),
+	orderBy    : $('#orderBy').val()
+ }
+ return data;
+}
+var queryDataHash;
+$( document ).ready(function() {
+	console.log('list210');
+	
+	var data = getQueryData();
+	queryDataHash = JSON.stringify(data).hashCode(); //검색조건 hash
+	
+	//날짜범위 picker설정
+	$(".ymd").datepicker({
+       language: 'ko', 
+       format: 'yyyy-mm-dd', 
+       autoclose: true,
+       todayHighlight: true
+	});
+	//날짜범위 키보드입력
+	$(".ymd").inputDateFormat();
+	//조회버튼
+	$('.btnRetrieve').on('click', function(){
+		var frYmd = $('#frYmd').val();
+		var toYmd = $('#toYmd').val();
+		
+		if(frYmd.length < 1 || toYmd.length < 1){
+            alert("기준일자의 범위를 넣어주십시오");
+            return;
+        }
+		
+		if(frYmd.length > 0 && toYmd.length > 0){
+			if(frYmd.replace(/\D/gi,'') > toYmd.replace(/\D/gi,'')){
+				alert('날짜 범위의 시작일자가 종료일자보다 미래입니다.');
+				return;
+			}
+		}
+		
+		var data = getQueryData();
+		console.log(data);
+		JuliaUtil.submitGet('210', data );
+	});
+	
+	//초기화버튼
+	$('.btnInit').on('click', function(){
+		var data = {
+				searchText : null, 
+				frYmd : null,
+				toYmd : null,
+				orderBy : null
+		};
+
+		JuliaUtil.submitGet('210', data );	
+	});	
+	//엑셀
+	$('.btnExcel').on('click', function(){
+		//검색조건이 바뀌었는지 체크
+		var data = getQueryData();
+		var hash = JSON.stringify(data).hashCode();
+		if(queryDataHash != hash){
+			alert("조회 조건이 변경되었습니다. 먼저 조회를 수행 후 엑셀버튼을 클릭해 주십시오");
+			return;
+		}
+		//현재 검색된 갯수가 0보다 큰지 체크
+		var listSize = $('#listSize').text();
+		if(listSize == 0){
+			alert("검색된 갯수가 0개입니다.");
+			return;
+		}
+		var data = getQueryData();
+		JuliaUtil.submitGet('210/excel', data );
+	});
+});
+</script>	
+</body>
+</html>

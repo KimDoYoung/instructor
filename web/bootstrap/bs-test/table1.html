@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="btn-group">
+        <a href="#" class="btnExcel" data-table-id="table1"><i class="bi bi-file-spreadsheet"></i></a>
+        <a href="#" class="btnClipboard" data-table-id="container1"><i class="bi bi-clipboard"></i></a>
+    </div>                        
+    
+    <div class="container" id="container1">
+
      <div class="row">
         <div class="col-6">
-            <table class="table table-bordered">
+            <table id="table1" class="table table-bordered">
                 <tr class="table-primary">
                     <td rowspan="2" class="align-middle text-center">Week No</td>
                     <td colspan="6" class="text-center">Walmart</td>
@@ -44,7 +50,11 @@
             </table>
         </div>
         <div class="col-6">
-            <table class="table table-bordered">
+            <div class="btn-group">
+                <a href="#" class="btnExcel" data-table-id="table2"><i class="bi bi-file-spreadsheet"></i></a>
+                <a href="#" class="btnClipboard" data-table-id="table2"><i class="bi bi-clipboard"></i></a>
+            </div>            
+            <table class="table table-bordered" id="table2">
                 <tr class="table-success">
                     <td rowspan="2" class="align-middle text-center">Week No</td>
                     <td colspan="6" class="text-center">krogger</td>
@@ -78,7 +88,11 @@
      </div>
      <div class="row">
         <div class="col-4">
-            <table class="table table-bordered">
+            <div class="btn-group">
+                <a href="#" class="btnExcel" data-table-id="table3"><i class="bi bi-file-spreadsheet"></i></a>
+                <a href="#" class="btnClipboard" data-table-id="table3"><i class="bi bi-clipboard"></i></a>
+            </div>              
+            <table class="table table-bordered" id="table3">
                 <tr><th colspan="3" class="text-center table-primary">Walmart</th></tr>
                 <tr>
                     <td colspan="2" class="text-end fw-bold">Total</td>
@@ -174,5 +188,40 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!-- custom -->
     <script src="js/my.js"></script>
+    <script>        
+    function selectElementContents(el) {
+        var body = document.body, range, sel;
+        if (document.createRange && window.getSelection) {
+            range = document.createRange();
+            sel = window.getSelection();
+            sel.removeAllRanges();
+            try {
+                range.selectNodeContents(el);
+                sel.addRange(range);
+            } catch (e) {
+                range.selectNode(el);
+                sel.addRange(range);
+            }
+        } else if (body.createTextRange) {
+            range = body.createTextRange();
+            range.moveToElementText(el);
+            range.select();
+        }
+        document.execCommand("Copy");
+        sel.removeAllRanges();
+    }  
+    $(document).ready(function () {
+        console.log('ready...');
+        $('.btnExcel').on('click', function(){
+
+        });
+        $('.btnClipboard').on('click', function(){
+            var tableId = $(this).data('table-id');
+            var el = $('#'+tableId).get(0);
+            selectElementContents(el);
+        });        
+    });
+
+    </script>
 </body>
 </html>

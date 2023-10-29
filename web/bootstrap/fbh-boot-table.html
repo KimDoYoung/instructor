@@ -122,6 +122,8 @@
               <a class="btn d-inline align-middle btn-secondary btnInit"><i class="bi bi-backspace"></i> 초기화</a>
               <a class="btn d-inline align-middle btn-success btnExcel"><i class="bi bi-file-spreadsheet"></i> 엑셀</a>
               <a class="btn d-inline align-middle btn-success btnColumnHide" data-bs-toggle="collapse" href="#collapseDateRange"><i class="bi bi-file-spreadsheet"></i> 컬럼</a>
+              <a class="btn d-inline align-middle btn-success btnTableExportToExcel"  href="#"><i class="bi bi-file-spreadsheet"></i> export to excel</a>
+              <a class="btn d-inline align-middle btn-warning btnCopyToClipboard"  href="#"><i class="bi bi-clipboard"></i> copy table to clipboard</a>
               <!-- 날짜범위선택 -->
               <div class="collapse mt-2" id="collapseDateRange">
                 <div class="card card-title">
@@ -1071,10 +1073,39 @@
     <!-- bootbox, bootstrap-table -->
     <script src="css/bootbox.all.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
     <script src="js/common.js"></script>
 
 <script>
   $(document).ready(function () {
+    function tableToString(tableId){
+      var $table = $('#'+tableId);
+      if($table == false) return "";
+      var s = '';
+      var headers = $table.find('thead tr th').each((idx,th)=>{
+        console.log(th);
+        s += $(th).text() + "\t";
+      });
+      if(s) s+= "\n";
+      var rows = $table.find('tbody tr').each( (idx,tr) => {
+        $(tr).find('td').each( (idx,td) => {
+          s += $(td).text() + "\t";
+        });
+        s += "\n";
+      });
+      return s;
+    }
+    $('.btnCopyToClipboard').on('click', ()=>{
+      var s = tableToString('table1');
+      console.log(s);
+      JuliaUtil.copyToClipboard(s);
+    });
+    $('.btnTableExportToExcel').on('click', ()=>{
+      const table = $('#table1').get(0);
+      const workbook = XLSX.utils.table_to_book(table, { sheet: 'table' });
+      XLSX.writeFile(workbook, 'table.xls')
+    });
+
     $('.dropdown').on('show.bs.dropdown',function(){
       console.log('drop down show')
       $('table thead').removeClass('sticky-top').removeClass('top-0');
@@ -1124,6 +1155,7 @@
 
     //offcanvase = visible field
     $('#offcanvasRight').on('hidden.bs.offcanvas', function(){
+
       console.log('offcanvas hidding...');
       $('.offcanvas-body').find('input:checkbox').each(function(idx, chk){
           var no = $(chk).data('field-no');
