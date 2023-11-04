@@ -10,11 +10,6 @@
     <title>table</title>
 </head>
 <body>
-    <div class="btn-group">
-        <a href="#" class="btnExcel" data-table-id="table1"><i class="bi bi-file-spreadsheet"></i></a>
-        <a href="#" class="btnClipboard" data-table-id="container1"><i class="bi bi-clipboard"></i></a>
-    </div>                        
-    
     <div class="container" id="container1">
 
      <div class="row">
@@ -51,10 +46,6 @@
             </table>
         </div>
         <div class="col-6">
-            <div class="btn-group">
-                <a href="#" class="btnExcel" data-table-id="table2"><i class="bi bi-file-spreadsheet"></i></a>
-                <a href="#" class="btnClipboard" data-table-id="table2"><i class="bi bi-clipboard"></i></a>
-            </div>            
             <table class="table table-bordered" id="table2">
                 <tr class="table-success">
                     <td rowspan="2" class="align-middle text-center">Week No</td>
@@ -89,10 +80,6 @@
      </div>
      <div class="row">
         <div class="col-4">
-            <div class="btn-group">
-                <a href="#" class="btnExcel" data-table-id="table3"><i class="bi bi-file-spreadsheet"></i></a>
-                <a href="#" class="btnClipboard" data-table-id="table3"><i class="bi bi-clipboard"></i></a>
-            </div>              
             <table class="table table-bordered" id="table3">
                 <tr><th colspan="3" class="text-center table-primary">Walmart</th></tr>
                 <tr>
@@ -181,6 +168,39 @@
         </div>
      </div>
     </div>    
+    <div class="container">
+        <h5>table-striped</h5>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-light">
+                    <caption>Table Name</caption>
+                    <tr>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                        <th>Column 3</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                        <tr class="table-primary" >
+                            <td scope="row">Item</td>
+                            <td>Item</td>
+                            <td>Item</td>
+                        </tr>
+                        <tr class="table-primary">
+                            <td scope="row">Item</td>
+                            <td>Item</td>
+                            <td>Item</td>
+                        </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">테이블 footer</td>
+                    </tr>        
+                </tfoot>
+            </table>
+        </div>
+        
+    </div>
 
     <!-- bootstrap, popper -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
