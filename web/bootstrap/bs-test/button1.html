@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bs-0</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>button</title>
+</head>
+<body>
+    <div class="container mb-3">
+        <button class="btn btn-primary">primary</button>
+        <button class="btn btn-warning btn-sm">primary</button>
+        <button class="btn btn-warning btn-lg disabled">disabled</button>
+    </div>    
+    <div class="container mb-3">
+    <h2>btn-group</h2>
+    <div class="btn-group">
+        <div class="btn btn-primary">버튼1</div>
+        <div class="btn btn-success">버튼2</div>
+        <div class="btn btn-primary">버튼3</div>
+    </div>
+    </div>
+    <div class="container mb-3">
+            <h2>btn-group</h2>
+        <div class="btn-group">
+            <a class="btn d-inline align-middle btn-primary btn-sm btnRetrieve"><i class="bi bi-search"></i> 조회</a>
+            <a class="btn d-inline align-middle btn-secondary btn-sm btnInit"><i class="bi bi-backspace"></i> 초기화</a>
+            <a class="btn d-inline align-middle btn-success btn-sm btnExcel"><i class="bi bi-file-spreadsheet"></i> 엑셀</a>
+            <button type="button" class="btn btn-warning btn-sm" id="btnTableExportToClipboard"  data-table-id="table1"  data-excel-name="List210"><i class="bi bi-clipboard"></i> 클립보드</button>
+        </div>
+    </div>
+    <div class="container mb-3">
+        <h2>btn-toolbar</h2>
+        <div class="btn-group">
+            <div class="btn btn-secondary">1</div>
+            <div class="btn btn-secondary">2</div>
+            <div class="btn btn-secondary">3</div>
+        </div>
+        <div class="btn-group">
+            <div class="btn btn-primary">7</div>
+            <div class="btn btn-secondary">8</div>
+            <div class="btn btn-secondary">9</div>
+        </div>
+    </div>
+    <div class="container mb-3">
+        <h2>dropdown button</h2>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                dropdown
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#" class="dropdown-item">menu1</a></li>
+                <li><a href="#" class="dropdown-item">menu2</a></li>
+                <li><a href="#" class="dropdown-item">menu3</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container mb-3">
+        <h2>input and button</h2>
+        <label for="searchText" class="form-label">Your vanity URL</label>
+        <div class="input-group mb-3">
+            <input type="text" id="searchText" class="form-control" placeholder="po#"
+             aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <a class="btn  btn-primary btnRetrieve" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="search data include keyword" ><i class="bi bi-search"></i></a>
+            <a class="btn  btn-secondary btnInit" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="initialize query options"><i class="bi bi-backspace"></i></a>
+          </div>
+    </div> 
+    <div class="container mb-3">
+        <h2>input and button</h2>
+        <div class="dropdown open">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                        월
+                    </button>
+            <div class="dropdown-menu" aria-labelledby="triggerId">
+                <button class="dropdown-item" href="#">1월</button>
+                <button class="dropdown-item" href="#">2월</button>
+                <button class="dropdown-item" href="#">3월</button>
+                <button class="dropdown-item" href="#">4월</button>
+                <button class="dropdown-item" href="#">5월</button>
+                <button class="dropdown-item" href="#">6월</button>
+                <button class="dropdown-item" href="#">7월</button>
+                <button class="dropdown-item" href="#">8월</button>
+                <button class="dropdown-item" href="#">9월</button>
+                <button class="dropdown-item" href="#">10월</button>
+                <button class="dropdown-item" href="#">11월</button>
+                <button class="dropdown-item" href="#">12월</button>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary btn-sm disable">월</button>
+            <button class="btn btn-primary btn-sm">1</button>
+            <button class="btn btn-warning btn-sm">2</button>
+            <button class="btn btn-primary btn-sm">3</button>
+            <button class="btn btn-warning btn-sm">4</button>
+            <button class="btn btn-primary btn-sm">5</button>
+            <button class="btn btn-warning btn-sm">6</button>
+            <button class="btn btn-primary btn-sm">7</button>
+            <button class="btn btn-warning btn-sm">8</button>
+            <button class="btn btn-primary btn-sm">9</button>
+            <button class="btn btn-warning btn-sm">10</button>
+            <button class="btn btn-primary btn-sm">11</button>
+            <button class="btn btn-warning btn-sm">12</button>
+        </div>
+    </div>
+    <div class="container mb-3">
+        <h2>spinner button</h2>
+        <button class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm"></span> Loading...
+        </button>
+    </div> 
+    <!-- bootstrap, popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- custom -->
+    <script src="js/my.js"></script>
+</body>
+</html>
