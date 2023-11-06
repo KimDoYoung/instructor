@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>form</title>
+</head>
+<body>
+    <div class="container">
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#form1" aria-controls="form1">
+            Toggle static offcanvas
+        </button>    
+    </div>    
+    <div class="container">
+        <form action="">
+            <div class="mb-3">
+                <label for="select1" class="form-label">select year</label>
+                <select name="select1" id="select1" class="form-select">
+                    <option value="" selected>select one...</option>
+                    <option value="1">1996</option>
+                    <option value="2">1997</option>
+                </select>
+            </div>            
+        </form>
+    </div>
+    <div class="container">
+        <h1 class="mb-5">Form Validation Display</h1>
+  
+        <form id="form2" class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" required />
+            <div class="valid-feedback">Looks Good</div>
+            <div class="invalid-feedback">Please pick a username</div>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" required />
+            <div class="valid-feedback">Looks Good</div>
+            <div class="invalid-feedback">Please pick a valid email</div>
+          </div>
+          <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" required />
+            <div class="valid-feedback">Looks Good</div>
+            <div class="invalid-feedback">Please pick a city</div>
+          </div>
+  
+          <div class="mb-3">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="invalidCheck"
+                required
+              />
+              <label class="form-check-label" for="invalidCheck">
+                Agree to terms and conditions
+              </label>
+              <div class="invalid-feedback">You must agree to the terms</div>
+            </div>
+          </div>
+  
+          <input type="submit" class="btn btn-primary" value="Submit" />
+        </form>
+  
+        <!-- Don't go past here -->
+      </div>
+      <div style="margin-top: 350px"></div>      
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="form1" aria-labelledby="staticBackdropLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="staticBackdropLabel">Data Add</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form action="">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" name="email" id="email" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label">Password</label>
+                    <input type="password" name="password" id="password1" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <input type="checkbox" name="rememberMe" id="rememberMe" class="form-checkbox-input">
+                    <label for="rememberMe" class="form-checkbox-label">Remember me</label>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </form>
+        </div>
+        <div class="offcanvas-footer">
+            <div class="alert alert-success" role="alert">
+              <h5 class="alert-heading">Alert Heading</h5>
+              <ul>
+                <li>form-control</li>
+                <li>form-checkbox-input</li>
+              </ul>
+            </div>
+        </div>
+    </div>
+    <!-- bootstrap, popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- custom -->
+    <script src="js/my.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('input[type="submit"]').on('click', (e)=>{
+            var $form=$('#form2');
+            if (!$form.get(0).checkValidity()) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            $form.addClass('was-validated');
+        });
+    });
+    </script>
+</body>
+</html>
