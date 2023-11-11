@@ -1,0 +1,10 @@
+$바탕색상 : #e2f0bb;
+$main-text-color : rgb(68, 68, 206);
+// 한글변수명도 가능
+body {
+  background-color:  $바탕색상
+}
+
+h1 {
+    color : $main-text-color;
+}
