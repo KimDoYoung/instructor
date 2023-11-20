@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <canvas id="chartWalmart" style="margin:0 auto;height:40vh; width:80vw"></canvas>
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">Column 1</th>
+                        <th scope="col">Column 2</th>
+                        <th scope="col">Column 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td scope="row">R1C1</td>
+                        <td>R1C2</td>
+                        <td>R1C3</td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">Item</td>
+                        <td>Item</td>
+                        <td>Item</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <canvas id="chartWmcom"></canvas>
+    </div>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+   
+    let chart ; 
+    let  labels = ["2023-21","2023-22","2023-23"];
+    
+    let  datas = {
+        Walmart :{
+                    Mango : [15,34,25],
+                    Pineapple:[30,25,23],
+                    Mandarin : [1023,42,2],
+        }
+    } 
+    const  Color = {
+        Mango : { border : '#CD5C5C', backgroundColor: '#E9967A'},
+        Pineapple : { border : '#0000FF', backgroundColor: '#00FFFF'},
+        Mandarin: { border : '#008000', backgroundColor: '#00FF00'}
+    };
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Mango',
+                data: datas.Walmart.Mango,
+                borderColor: Color.Mango.border,
+                backgroundColor: Color.Mango.backgroundColor,
+            },
+            {
+                label: 'Pineapple',
+                data: datas.Walmart.Pineapple,
+                borderColor: Color.Pineapple.border,
+                backgroundColor:Color.Pineapple.backgroundColor,
+            },
+            {
+                label: 'Mandarin',
+                data: datas.Walmart.Mandarin,
+                borderColor:  Color.Mandarin.border,
+                backgroundColor: Color.Mandarin.backgroundColor,
+            },
+        ]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Walmart Quantity'
+            }
+            }
+        },
+    };
+    const ctx = document.getElementById('chartWalmart');
+    chart = new Chart(ctx, config);     
+    const ctx1 = document.getElementById('chartWmcom');
+    let chart2 = new Chart(ctx1, config);     
+    </script>
+</body>
+</html>
