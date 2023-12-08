@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
+    <div style="width:800px">
         <canvas id="myChart"></canvas>
     </div>    
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>     -->
@@ -18,10 +18,10 @@
     chart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['망고', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['2023-21','2023-22','2023-23','2023-24','2023-25','2023-26','2023-27','2023-28','2023-29','2023-30','2023-31','2023-32','2023-33','2023-34','2023-35','2023-36','2023-38'],
         datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'Purchase Order Amount(USD)',
+        data: [40405.08,19653.94,18078.40,11553.72,14270.66,10702.82,15793.36,12314.82,14662.62,1632.36,1809.74,1002.74,737.54,364.18,485.00,470.86,664.82],
         borderWidth: 1
         }]
     },
@@ -33,7 +33,7 @@
         }
     }
     });     
-    chart.data.datasets[0].data = [13,13,13,5,3,5];   
+    //chart.data.datasets[0].data = [13,13,13,5,3,5];   
     </script>
 </body>
 </html>
