@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>each-find-map</title>
+</head>
+<body>
+    <div class="container">
+        <div id="divList">
+            <div class="divTitle">Table1</div>
+            <table id="table1">
+                <tr><th>Name</th></tr>
+                <tr><td>Hong</td></tr>
+                <tr><td>Gil</td></tr>
+                <tr><td>Dong</td></tr>
+            </table>
+            <input type="hidden" name="hidden1" value="abc" />
+            <span class="fw-bolder">jquery find, each, map</span>
+        </div>
+        <ul id="listUrl">
+            <li><a href="#" data-url="naver.com">Naver</a></li>
+            <li><a href="#" data-url="google.com">Google</a></li>
+            <li><a href="#" data-url="daum.com">Daum</a></li>
+        </ul>
+    </div>    
+
+    <!-- bootstrap, popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- custom -->
+    <script src="js/my.js"></script>
+    <script>
+    $(document).ready(function () {
+
+        console.log('ready...');
+
+        console.log('★★★★★------[ (selector).find  :객체를 찾아서 배열로, 못찾아도 넘어감, 여러개찾으면 배열로, 딱1개찾으면 인자없이 지정됨   ]-------★★★★★');
+        var $tds = $('#table1').find('td');
+        console.log('찾은 갯수: ' + $tds.length);
+        $tds.each((idx, item)=>{console.log($(item).text())});
+        console.log('-------------------------------------------');
+        $tds = $('#table2').find('td');
+        console.log('찾은 갯수: ' + $tds.length);
+        console.log('-------------------------------------------');
+        var v = $('#table1').find('#notexists')[0];
+        console.log(v);
+        console.log('-------------------------------------------');
+        v = $('.container').find('input[name=hidden1]').val();
+        console.log(v);
+
+
+        console.log('★★★★★------[ each (= for, looping) ]-------★★★★★');
+        console.log('-------------------------------------------');
+        console.log('array.each')
+        console.log('--------------------------------------------')
+        $.each([1,2,3], (idx,item)=> {console.log(idx + ' item: ' + item);});
+        var users = [
+            {id: 1, name:'Hong', age: 10},
+            {id: 2, name:'Gil', age: 22},
+            {id: 3, name:'Dong', age: 45},
+        ];
+        console.log('--------------------------------------------')
+        console.log('objects.each')
+        console.log('--------------------------------------------')
+        $.each(users, function(idx, user){
+            console.log(`user : ${user.id} : ${user.name} (${user.age})`);
+        })
+        console.log('--------------------------------------------')
+        console.log('selector.each')
+        console.log('--------------------------------------------')
+        $('#listUrl > li > a').each(function(idx, item){
+            console.log(idx + ":" + $(item).data('url'));
+        });
+        console.log('--------------------------------------------')
+        console.log('find and each')
+        console.log('--------------------------------------------')
+        $('.container').find('a').each( (idx,item)=>{console.log($(item).data('url')) } )
+
+        console.log('★★★★★------[ map (= 배열, objects 을 새로운 배열또는 objects ) ]-------★★★★★');
+        var h1Array = $.map([1,2,3], function(item){
+            return `<h${item}>${item}</h${item}>`;
+        });
+        console.log(h1Array)
+
+        h1Array = [1,2,3].map(function(item){
+            return `<h${item}>${item}</h${item}>`;
+        });
+        console.log(h1Array)
+
+        var names = [
+                {id:1,name:'Hong'},
+                {id:2,name:'Gil'},
+                {id:3,name:'Dong'},
+        ].map(item=>{return item.name.toUpperCase()});
+        console.log(names);
+
+    });
+    </script>
+</body>
+</html>
