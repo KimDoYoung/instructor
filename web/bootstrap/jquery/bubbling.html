@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery template</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>    
+</head>
+<body>
+    
+<h1>jquery template</h1>    
+<p> e.preventDefault() : 태그의 기본동작을 방지</p>
+<a href="http://www.naver.com">naver</a>
+<hr>
+<p>e.stopPropagation() : event의 버블링 (DOM의 상위객체를 찾아가면서 event를 발생시키는 것 방지)</p>
+<div style="background-color: gray; width:500px;height:500px">
+    <button id="button1">button-할아버지</button>
+    <div style="background-color: green;width:300px;height:300px; margin: 30px">
+        <button id="button2">button-아빠</button>
+        <div style="background-color: yellow; margin:30px; width:100px;height:100px">
+            <button id="button3">button-손자</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        console.log('doument ready...');
+        
+        $("a").on('click', function(e){
+            e.preventDefault();
+        })
+        // $("#button1").click(function(){
+        //     alert('할아버지 버튼입니다');
+        // });
+        // $("#button2").click(function(){
+        //     alert('아버지 버튼입니다');
+        // });
+        // $("#button3").click(function(){
+        //     alert('손자  버튼입니다');
+        // });
+        $("#button1").on('click', function(){
+            alert('할아버지 버튼입니다');
+        });
+        $('#button2').on('click', function(){
+            alert('아버지 버튼입니다');
+        });
+        $('#button3').on('click', function(){
+            alert('손자  버튼입니다');
+        });
+
+    });
+</script>
+</body>
+</html>
