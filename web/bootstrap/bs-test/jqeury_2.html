@@ -6,26 +6,62 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>trim-</title>
+    <title>trim-filter</title>
 </head>
 <body>
     <div class="container">
         <div id="divList">
             <div class="divTitle">Table1</div>
-            <table id="table1">
-                <tr><th>Name</th></tr>
-                <tr><td>Hong</td></tr>
-                <tr><td>Gil</td></tr>
-                <tr><td>Dong</td></tr>
+            <table id="table1" class="table bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
             </table>
             <input type="hidden" name="hidden1" value="abc" />
-            <span class="fw-bolder">jquery find, each, map</span>
+            <div class="button-area d-inline">
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="rdoGender"
+                            id="allGenger"
+                            value="All"
+                        />
+                        <label class="form-check-label" for="allGenger">All</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="rdoGender"
+                            id="rdoMale"
+                            value="M"
+                        />
+                        <label class="form-check-label" for="rdoMale">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="rdoGender"
+                            id="rdoFemale"
+                            value="F"
+                        />
+                        <label class="form-check-label" for="rdoFemale">Female</label>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
-        <ul id="listUrl">
-            <li><a href="#" data-url="naver.com">Naver</a></li>
-            <li><a href="#" data-url="google.com">Google</a></li>
-            <li><a href="#" data-url="daum.com">Daum</a></li>
-        </ul>
     </div>    
 
     <!-- bootstrap, popper -->
@@ -39,8 +75,50 @@
     $(document).ready(function () {
 
         console.log('ready...');
-        var v = $.trim('  ab c ');
+        console.log('')
+        var v = $.trim('  we are the world ');
         console.log(v);
+        console.log('★★★★★★★★★★★★★★★★★★★★★★★★');
+        console.log('filter')
+        console.log('★★★★★★★★★★★★★★★★★★★★★★★★');
+        var data = [
+            {id: 1, name: 'Hong', age : '20', gender : 'M'},
+            {id: 2, name: 'Park', age : '23', gender : 'M'},
+            {id: 3, name: 'Lee', age : '19', gender : 'F'},
+            {id: 4, name: 'Jeong', age : '42', gender : 'M'},
+            {id: 5, name: 'Yun', age : '34', gender : 'F'},
+            {id: 6, name: 'Son', age : '52', gender : 'M'},
+            {id: 7, name: 'Ahn', age : '27', gender : 'F'},
+            {id: 8, name: 'Kim', age : '44', gender : 'M'},
+            {id: 9, name: 'Chun', age : '33', gender : 'F'},
+            {id: 10, name: 'Mun', age : '27', gender : 'M'},
+        ];
+        function makeTable(){
+            var html = '';
+            data.forEach((item)=>{
+                html += `<tr>
+                            <td>${item.id}</td><td>${item.name}</td><td>${item.age}</td><td>${item.gender}</td>
+                        </tr>
+                    `;
+            });
+        
+            $('#table1 tbody').html(html);
+        }
+        //------------------------------------
+        makeTable();
+
+        $('input[name=rdoGender]').on('change',function(){
+            var checked = $(this).val();
+
+            $('#table1 tbody tr').filter(function(idx, tr){
+                $(tr).removeClass('table-danger');
+            })
+            $('#table1 tbody tr').filter(function(idx, tr){
+                if( $(tr).find('td:nth-child(4)').text() == checked ){
+                    $(tr).addClass('table-danger');
+                }
+            });
+        });
     });
     </script>
 </body>
