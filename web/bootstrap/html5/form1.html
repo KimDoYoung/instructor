@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form 예제</title>
+    <style>
+        /* 간단한 스타일링 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, select, button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        .checkbox-group, .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .checkbox-group label, .radio-group label {
+            width: 48%;
+            margin-right: 2%;
+        }
+        .checkbox-group input, .radio-group input {
+            width: auto;
+            margin-right: 5px;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/submit" method="post">
+        <label for="username">사용자 이름:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="email">이메일:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="gender">성별:</label>
+        <select id="gender" name="gender">
+            <option value="male">남성</option>
+            <option value="female">여성</option>
+        </select>
+
+        <label>관심 있는 주제:</label>
+        <div class="checkbox-group">
+            <input type="checkbox" id="programming" name="interests[]" value="programming">
+            <label for="programming">프로그래밍</label>
+
+            <input type="checkbox" id="design" name="interests[]" value="design">
+            <label for="design">디자인</label>
+
+            <input type="checkbox" id="management" name="interests[]" value="design">
+            <label for="management">관리</label>
+        </div>
+
+        <label>최근 프로젝트에 사용한 기술:</label>
+        <div class="radio-group">
+            <input type="radio" id="frontend" name="technology" value="frontend">
+            <label for="frontend">프론트엔드 개발</label>
+
+            <input type="radio" id="backend" name="technology" value="backend">
+            <label for="backend">백엔드 개발</label>
+        </div>
+
+        <button type="submit">제출</button>
+    </form>
+
+</body>
+</html>
