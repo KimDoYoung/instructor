@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    
+  <title>게시판 입력 폼</title>
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2 class="mb-4 fw-bold">게시판 입력</h2>
+  
+  <form id="form1" action="/board/insert" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="title" class="form-label fw-bold">제목</label>
+      <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    
+    <!-- Quill.js를 사용한 HTML 편집기 -->
+    <div class="mb-3">
+        <label for="content" class="form-label fw-bold">내용</label>
+        <div id="editor" style="height: 300px;"></div>
+        <input type="hidden" name="content" id="content" required>
+      </div>
+    
+    <div class="mb-3">
+        <label for="boardType" class="form-label fw-bold">게시판 유형</label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="boardType" id="notice" value="9" >
+          <label class="form-check-label" for="notice">
+            공지
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="boardType" id="general" value="1" checked>
+          <label class="form-check-label" for="general">
+            일반게시물
+          </label>
+        </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="title" class="form-label fw-bold">태그</label>
+      <input type="text" class="form-control" id="tags" name="tags" >
+    </div>
+  
+      
+    <!-- 게시 시작일과 종료일 -->
+    <div class="row">
+        <div class="col-md-6 mb-3 fw-bold">
+          <label for="startDate" class="form-label">게시 시작일</label>
+          <input type="text" class="form-control datepicker" id="startDate" name="startDate" autocomplete="off" required>
+        </div>
+        <div class="col-md-6 mb-3 fw-bold">
+          <label for="endDate" class="form-label">게시 종료일</label>
+          <input type="text" class="form-control datepicker" id="endDate" name="endDate" autocomplete="off" required>
+        </div>
+      </div>
+
+      <div class="d-flex form-switch mb-5">
+        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault" name="status" value="1" />&nbsp;
+        <label class="form-check-label" for="switchCheckDefault">작성중</label>
+      </div>
+    
+    <button type="submit" class="btn btn-primary">글쓰기</button>
+  </form>
+  
+</div>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    // Datepicker 초기화
+    $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
+
+    // Quill.js 초기화
+    var quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+
+    $("#switchCheckDefault").change(function () {
+      // 스위치가 on 상태인 경우
+      if ($(this).is(":checked")) {
+        $(".form-check-label").text("게시");
+      } else {
+        // 스위치가 off 상태인 경우
+        $(".form-check-label").text("작성중");
+      }
+    });
+
+    $("#form1").submit(function(){
+      
+    });
+});
+</script>
+
+</body>
+</html>
