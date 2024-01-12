@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resizable Split Layout with jQuery</title>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 10px;
+        }
+
+        .container {
+            display: flex;
+            border: 1px solid #cbd5e0;
+            height: calc(100% - 20px);
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .container__left {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            min-width: 75px; /* 최소 너비 설정 */
+        }
+
+        .resizer {
+            background-color: #cbd5e0;
+            cursor: ew-resize;
+            height: 100%;
+            width: 2px;
+        }
+
+        .container__right {
+            flex: 1;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            // Query the elements
+            const $resizer = $('#dragMe');
+            const $leftSide = $resizer.prev();
+            const $rightSide = $resizer.next();
+
+            // 초기 왼쪽 div의 넓이 설정
+            $leftSide.width($rightSide.width() / 2);
+
+            // The current position of the mouse
+            let x = 0;
+            let leftWidth = 0;
+
+            // Handle the mousedown event
+            // that's triggered when the user drags the resizer
+            const mouseDownHandler = function (e) {
+                // Get the current mouse position
+                x = e.clientX;
+                leftWidth = $leftSide.width();
+
+                // Attach the listeners to document
+                $(document).on('mousemove', mouseMoveHandler);
+                $(document).on('mouseup', mouseUpHandler);
+            };
+
+            const mouseMoveHandler = function (e) {
+                // How far the mouse has been moved
+                const dx = e.clientX - x;
+
+                const newLeftWidth = leftWidth + dx;
+                const containerWidth = $resizer.parent().width();
+
+                // 최소 너비 제한
+                if (newLeftWidth > 75 && newLeftWidth < containerWidth - 75) {
+                    $leftSide.width(newLeftWidth);
+                    $rightSide.width(containerWidth - newLeftWidth);
+                }
+
+                $resizer.css('cursor', 'col-resize');
+                $('body').css('cursor', 'col-resize');
+
+                $leftSide.css({
+                    'user-select': 'none',
+                    'pointer-events': 'none'
+                });
+
+                $rightSide.css({
+                    'user-select': 'none',
+                    'pointer-events': 'none'
+                });
+            };
+
+            const mouseUpHandler = function () {
+                $resizer.css('cursor', '');
+                $('body').css('cursor', '');
+
+                $leftSide.css({
+                    'user-select': '',
+                    'pointer-events': ''
+                });
+
+                $rightSide.css({
+                    'user-select': '',
+                    'pointer-events': ''
+                });
+
+                // Remove the handlers of mousemove and mouseup
+                $(document).off('mousemove', mouseMoveHandler);
+                $(document).off('mouseup', mouseUpHandler);
+            };
+
+            // Attach the handler
+            $resizer.on('mousedown', mouseDownHandler);
+        });
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <!-- 왼쪽 div -->
+    <div class="container__left">
+        <div style="width:500px; background-color: lightcyan;">1111</div>
+    </div>
+    <div class="resizer" id="dragMe"></div>
+    <!-- 오른쪽 div -->
+    <div class="container__right">Right</div>
+</div>
+
+</body>
+</html>
