@@ -10,32 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>SQL format</h1>
-        <div>
-            <textarea name="src" id="src" cols="80" rows="10" class="w-100"></textarea>
-        </div>
-        <div class="mt-2">
-            <button class="btn btn-primary me-2" id="btnFormat">Format</button>
-            <button class="btn btn-secondary" id="btnClear">Clear</button>
-        </div>
-        <div class="mt-2">
-            <textarea name="des" id="des" cols="80" rows="10" class="w-100"></textarea>
-        </div>
-        <div class="mt-2">
-            <button class="btn btn-warning me-2" id="btnClipboard">to Clipboard</button>
-        </div>
     </div> 
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-        <div id="myToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto">Bootstrap Toast</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                클립보드로 텍스트가 복사되었습니다.
-            </div>
-        </div>
-    </div>       
     <!-- bootstrap, popper -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
@@ -45,23 +20,6 @@
     <script src="js/sqlformatter.js"></script>    
     <script>
   $(document).ready(function () {
-    $('#btnFormat').on('click', function(){
-        var sql = $('#src').val();
-        if(sql.trim().length < 1) return;
-
-        var formatSql = SqlFormatter.sqlKeywordToUpper(sql);
-        $('#des').val(formatSql);
-    });
-    $('#btnClear').on('click', function(){
-        $('#src').val('');
-        $('#des').val('');
-    });
-    $('#btnClipboard').on('click', function(){
-        var sql = $('#des').val();
-        if(sql.length > 0){
-            copyToClipboard(sql);
-        }
-    });
   });
   function copyToClipboard() {
     var textarea = document.getElementById("des");

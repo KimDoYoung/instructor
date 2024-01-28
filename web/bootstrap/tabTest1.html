@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동적 탭 추가 및 삭제 예제</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <ul class="nav nav-tabs" id="myTabs">
+        <li class="nav-item">
+            <a class="nav-link active" id="tab1" data-bs-toggle="tab" href="#content1">탭 1 <i class="bi bi-x tab-close"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab2" data-bs-toggle="tab" href="#content2">탭 2 <i class="bi bi-x tab-close"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab3" data-bs-toggle="tab" href="#content3">탭 3 <i class="bi bi-x tab-close"></i></a>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-2">
+        <div class="tab-pane fade show active" id="content1">탭 1의 내용</div>
+        <div class="tab-pane fade" id="content2">탭 2의 내용</div>
+        <div class="tab-pane fade" id="content3">탭 3의 내용</div>
+    </div>
+
+    <!-- 버튼 추가 -->
+    <button class="btn btn-primary mt-3" id="addTabBtn">새 탭 추가</button>
+    <button class="btn btn-danger mt-3" id="closeAllTabsBtn">모두 닫기</button>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // 새 탭을 추가하는 함수
+        function addNewTab() {
+            // 새로운 탭 번호 계산
+            var newTabNumber = $("#myTabs li").length + 1;
+
+            // 기존에 선택되었던 탭의 active 클래스 제거
+            $(".nav-link").removeClass("active");
+
+            // 새로운 탭 추가
+            var newTab = '<li class="nav-item">' +
+                '<a class="nav-link active" id="tab' + newTabNumber + '" data-bs-toggle="tab" href="#content' + newTabNumber + '">탭 ' + newTabNumber + ' <i class="bi bi-x tab-close"></i></a>' +
+                '</li>';
+            $("#myTabs").append(newTab);
+
+            // 기존 탭의 내용 비우기
+            $(".tab-pane").removeClass("show active");
+            
+            // 새로운 탭 내용 추가
+            var newTabContent = '<div class="tab-pane fade show active" id="content' + newTabNumber + '">탭 ' + newTabNumber + '의 내용</div>';
+            $(".tab-content").append(newTabContent);
+
+            // 새로 추가된 탭을 활성화
+            $("#tab" + newTabNumber).tab("show");
+
+            // 새로운 탭에 클릭 이벤트 핸들러 추가
+            $("#tab" + newTabNumber).on("click", function () {
+                $(this).tab("show");
+            });
+
+            // 탭 삭제 버튼에 클릭 이벤트 핸들러 추가
+            $(".tab-close").on("click", function (e) {
+                e.stopPropagation(); // 부모 탭 클릭 이벤트 방지
+                var tabId = $(this).closest(".nav-link").attr("id");
+                removeTab(tabId);
+            });
+        }
+
+        // 탭 삭제 함수
+        function removeTab(tabId) {
+            $("#" + tabId).closest("li").remove();
+            var contentId = tabId.replace("tab", "content");
+            $("#" + contentId).remove();
+            // 첫 번째 탭을 활성화
+            $("#myTabs li:first-child a").tab("show");
+        }
+
+        // "모두 닫기" 버튼 클릭 시 모든 탭 닫기
+        $("#closeAllTabsBtn").click(function () {
+            $("#myTabs li").remove();
+            $(".tab-content").empty();
+        });
+
+        // 버튼 클릭 시 새 탭 추가
+        $("#addTabBtn").click(function () {
+            addNewTab();
+        });
+    });
+</script>
+
+</body>
+</html>
