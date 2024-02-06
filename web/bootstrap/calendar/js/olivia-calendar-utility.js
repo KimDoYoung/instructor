@@ -369,7 +369,7 @@ const CalendarMaker = (function() {
                 html += '<div class="row">';
                 saveCloseDiv = '</div>';
             }
-            html += '<div class="col">' + ymd.substring(6) + "</div>";
+            html += '<div class="col day">' + ymd.substring(6) + "</div>";
             ymd = addYmd(ymd, 1);
             i++;
         }
