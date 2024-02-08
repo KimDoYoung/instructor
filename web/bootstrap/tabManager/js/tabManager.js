@@ -1,174 +1,62 @@
-// Tab 객체 정의
-const Tab = function(menuId) {
-    let status = 'notLoaded'; // loaded 여부
-    let selected = false; // 선택 여부
+function TabManager(selector) {
+    this.tabArea = $(selector);
+    this.tabList = $('<ul class="nav nav-tabs" role="tablist"></ul>');
+    this.tabContent = $('<div class="tab-content"></div>');
+    this.tabArea.append(this.tabList).append(this.tabContent);
+    this.seq = 0; // "새로운"으로 시작하는 탭 제목의 일련번호 추적
 
-    return {
-        getStatus: function() {
-            return status;
-        },
-        setStatus: function(value) {
-            status = value;
-        },
-        isSelected: function() {
-            return selected;
-        },
-        setSelected: function(value) {
-            selected = value;
-        },
-        getMenuId: function() {
-            return menuId;
+    this.addTab = function(id, title) {
+        if(this.getTab(id).length === 0) { // 동일한 ID가 이미 존재하는지 확인
+            if(title === undefined) {
+                this.seq++; // "새로운" 탭의 일련번호 증가
+                title = '새로운 ' + this.seq; // 제목이 undefined일 경우 자동 생성
+            }
+
+            var newTab = $('<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#' + id + '">' + title + ' <span class="close" style="cursor:pointer;">&times;</span></a></li>');
+            var newTabContent = $('<div class="tab-pane fade" id="' + id + '">' + title + ' 내용</div>');
+
+            this.tabList.append(newTab);
+            this.tabContent.append(newTabContent);
+
+            newTab.find('.close').click(() => this.removeTab(id));
+        } else {
+            console.warn("Tab with ID '" + id + "' already exists.");
         }
     };
-};
 
-// TabManager 객체 정의
-const TabManager = function() {
-    const tabs = [];
-    let selectedTab = null; // 현재 선택된 탭
+    this.removeTab = function(id) {
+        $('#' + id).remove();
+        this.tabList.find('a[href="#' + id + '"]').parent().remove();
+    };
 
-    return {
-        addTab: function(menuId) {
-            const tab = Tab(menuId);
-            tabs.push(tab);
-            return tab;
-        },
-        removeTab: function(tab) {
-            const index = tabs.indexOf(tab);
-            if (index !== -1) {
-                tabs.splice(index, 1);
-            }
-        },
-        openTab: function(tab) {
-            // 여기에 tab 열기 로직 추가
-            console.log(`Open tab with menuId: ${tab.getMenuId()}`);
-        },
-        selectTab: function(tab) {
-            // 이전에 선택된 탭이 있다면 선택 해제
-            if (selectedTab) {
-                selectedTab.setSelected(false);
-            }
+    this.getTab = function(id) {
+        return this.tabList.find('a[href="#' + id + '"]');
+    };
 
-            // 선택된 탭 업데이트
-            selectedTab = tab;
-            selectedTab.setSelected(true);
-
-            // 여기에 tab 선택 로직 추가
-            console.log(`Select tab with menuId: ${tab.getMenuId()}`);
-        },
-        closeAllTabs: function() {
-            tabs.forEach(tab => {
-                // 여기에 각 tab 닫기 로직 추가
-                console.log(`Close tab with menuId: ${tab.getMenuId()}`);
-            });
-            tabs.length = 0; // 모든 탭 삭제
-            selectedTab = null; // 선택된 탭 초기화
-        },
-        getTabs: function() {
-            return tabs;
-        },
-        getSelectedTab: function() {
-            return selectedTab;
+    this.selectTab = function(id) {
+        var tab = this.getTab(id);
+        if(tab.length > 0) {
+            tab.tab('show'); // 탭이 존재하면 선택
+        } else {
+            this.addTab(id); // 탭이 존재하지 않으면 새로 추가
+            this.getTab(id).tab('show'); // 추가된 탭을 선택
         }
     };
-}();
 
-//
-    const TabManager2 = function () {
-        const tabs = [];
+    this.closeAllTabs = function() {
+        this.tabList.children().each((index, elem) => {
+            var id = $(elem).find('a').attr('href').substring(1);
+            this.removeTab(id);
+        });
+    };
 
-        function addTab(tabId, menuId) {
-            const tab = {
-                tabId: tabId,
-                menuId: menuId,
-                status: {
-                    selected: false,
-                    loaded: false
-                }
-            };
-
-            tabs.push(tab);
-            updateUI();
+    this.getTitle = function(id) {
+        // id에 해당하는 탭의 제목을 반환합니다.
+        var tab = this.tabList.find('a[href="#' + id + '"]');
+        if (tab.length > 0) {
+            return tab.contents().not(tab.children()).text().trim(); // 닫기 버튼의 텍스트를 제외하고 탭의 제목만 반환
+        } else {
+            return null; // 해당 ID를 가진 탭이 없는 경우
         }
-
-        function removeTab(tabId) {
-            const index = tabs.findIndex(tab => tab.tabId === tabId);
-            if (index !== -1) {
-                tabs.splice(index, 1);
-                updateUI();
-            }
-        }
-
-        function selectTab(tabId) {
-            const tab = tabs.find(tab => tab.tabId === tabId);
-            if (tab) {
-                tab.status.selected = true;
-
-                if (!tab.status.loaded) {
-                    // Simulate AJAX request for demonstration
-                    setTimeout(() => {
-                        // Assume server response with handlebar template and data
-                        const template = "<div>{{menuId}} - Loaded Content</div>";
-                        const data = { menuId: tab.menuId };
-                        const content = Handlebars.compile(template)(data);
-
-                        // Update UI with loaded content
-                        $("#" + tab.tabId).html(content);
-                        tab.status.loaded = true;
-
-                        // Additional logic for actual AJAX request can be added here
-                    }, 1000);
-                }
-
-                updateUI();
-            }
-        }
-
-        function updateUI() {
-            // Clear existing tabs and content
-            $("#myTabs li").remove();
-            $(".tab-content").empty();
-
-            // Add tabs to UI
-            tabs.forEach(tab => {
-                const tabHtml = '<li class="nav-item">' +
-                    '<a class="nav-link' + (tab.status.selected ? ' active' : '') + '" id="' + tab.tabId + '" data-bs-toggle="tab" href="#content' + tab.tabId.slice(3) + '">' +
-                    'Tab ' + tab.tabId.slice(3) +
-                    ' <i class="bi bi-x-circle tab-close"></i></a>' +
-                    '</li>';
-                $("#myTabs").append(tabHtml);
-
-                // Add content to UI
-                const contentHtml = '<div class="tab-pane fade' + (tab.status.selected ? ' show active' : '') + '" id="content' + tab.tabId.slice(3) + '">' +
-                    'Tab ' + tab.tabId.slice(3) + ' Content' +
-                    '</div>';
-                $(".tab-content").append(contentHtml);
-            });
-
-            // Attach click event for new tab close buttons
-            $(".tab-close").on("click", function (e) {
-                e.stopPropagation(); // Prevent tab click event
-                const tabId = $(this).closest(".nav-link").attr("id");
-                removeTab(tabId);
-            });
-
-            // Attach click event for tab selection
-            $(".nav-link").on("click", function () {
-                const tabId = $(this).attr("id");
-                selectTab(tabId);
-            });
-        }
-
-        return {
-            addTab: addTab,
-            removeTab: removeTab,
-            selectTab: selectTab
-        };
-    }();
-
-    // Example usage
-    // TabManager.addTab("tab2", "menuId2");
-    // TabManager.addTab("tab3", "menuId3");
-    // TabManager.selectTab("tab2");
-
-
+    };
+}

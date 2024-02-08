@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome Style Tabs</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css" rel="stylesheet">
+
+</head>
+<style>
+ #tab-area .nav-item {
+    width: 200px;
+    margin-right: 0px;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: #f1f1f1;
+    overflow: hidden;
+    position: relative;
+}
+
+#tab-area .nav-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#tab-area .nav-link span { /* 탭 제목을 위한 스타일 */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#tab-area .close {
+    visibility: hidden; /* 기본적으로 숨김 */
+    color: #dc3545; /* Bootstrap danger 색상 */
+}
+
+#tab-area .nav-item:hover .close {
+    visibility: visible; /* 호버 시 보임 */
+}
+
+#tab-area .nav-tabs .nav-link.active, 
+#tab-area .nav-tabs .nav-item.show .nav-link {
+    background-color: white; /* 선택된 탭의 배경색 변경 */
+    color: black; /* 선택된 탭의 텍스트 색상 변경 */
+    border-color: #dedce8 #dedce8 #f1f1f1; /* 경계선 색상 조정 */
+}
+    </style>
+    
+<body>
+
+<div class="container">
+    <header>
+        <h1>1111</h1>
+    </header>
+    <main>
+    <div id="tab-area">
+        <ul class="nav nav-tabs" id="tabList" role="tablist">
+            <!-- Tabs will be dynamically added here -->
+        </ul>
+        <div class="tab-content" id="tabContent">
+            <!-- Tab content will be dynamically added here -->
+        </div>
+    </div>
+    </main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="js/tabManager.js"></script>
+<script>
+$(document).ready(function() {
+    var tabManager = new TabManager("#tab-area");
+    tabManager.addTab(1,"홍길동");
+    tabManager.addTab(2,"이미자");
+    tabManager.addTab(3,"이순신");
+    tabManager.selectTab(1);
+});
+</script>
+</body>
+</html>
+ 

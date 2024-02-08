@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resizable Split Layout with jQuery</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body, html {
             height: 100%;
@@ -13,17 +15,44 @@
         .container-left-right {
             display: flex;
             border: 1px solid #cbd5e0;
-            height: calc(100% - 5%);
+            height: calc(100% - 10%);
             width: 100%;
             margin-bottom: 20px;
         }
 
         .container__left {
-            align-items: center;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* 세로 방향으로 아이템을 정렬 */
+            align-items: flex-start; /* 왼쪽 정렬 */
+            justify-content: flex-start; /* 상단 정렬 */
             min-width: 150px; /* 최소 너비 설정 */
+            padding: 10px; /* 좌우 패딩 추가 */
         }
+
+        .container__left ul {
+            padding: 0;
+            margin: 0; /* 기본 마진 제거 */
+            list-style-type: none; /* 기본 리스트 스타일 제거 */
+            width: calc(100% - 20px); /* ul의 너비를 container__left의 패딩을 고려하여 조정 */
+        }
+        .container__left ul li {
+            margin-bottom: 15px; /* 항목 간 간격 조정 */
+            list-style-type: none; /* 기본 리스트 스타일 제거 */
+        }
+
+        .container__left ul li a {
+            display: block; /* 블록 레벨 요소로 만들어 너비를 100%로 설정 가능하게 함 */
+            width: 100%; /* 너비를 부모의 100%로 설정 */
+            padding: 0.5rem; /* 내부 패딩 추가 */
+            text-decoration: none; /* 링크 밑줄 제거 */
+            color: #495057; /* 텍스트 색상 설정 */
+        }
+
+        .container__left ul li a:hover {
+            background-color: #e9ecef; /* 호버 시 배경색 변경 */
+            color: #007bff; /* 호버 시 텍스트 색상 변경 */
+        }
+
 
         .resizer {
             background-color: #cbd5e0;
@@ -38,25 +67,57 @@
             display: flex;
             justify-content: center;
         }
+
+        .tree-menu {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+        }
+
+        .tree-menu ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tree-menu ul ul {
+            margin-left: 20px;
+        }
+
+        .tree-menu a {
+            text-decoration: none;
+            color: #495057;
+            display: block;
+            padding: 0.5rem 1rem;
+        }        
     </style>
 
 </head>
 <body>
-    <div class="container-left-right">
+    <div class="container">
+        <h1>Utilities</h1>
+    </div>
+    <div class="container container-left-right">
         <!-- 왼쪽 div -->
         <div class="container__left">
-            <div style="width:300px; background-color: azure;">1111</div>
+            <ul class="mt-5">
+                <li><a href="">Pivot</a></li>
+                <li><a href="">Awk</a></li>
+                <li><a href="">Sql format</a></li>
+                <li><a href="">Encrypt</a></li>
+            </ul>
         </div>
         <div class="resizer" id="dragMe"></div>
         <!-- 오른쪽 div -->
         <div class="container__right">Right</div>
     </div>
+
+    <!-- Bootstrap 5 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-
-$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             // 변수설정
             const $resizer = $('#dragMe');
             const $leftSide = $resizer.prev();
@@ -129,7 +190,15 @@ $(document).ready(function () {
 
             // 핸들러를 연결합니다
             $resizer.on('mousedown', mouseDownHandler);
+            //왼쪽 메뉴 선택
+            $('.container__left ul li a').on('click', function (e) {
+                e.preventDefault(); // 기본 동작 방지
+                var menuItem = $(this).text(); // 클릭된 메뉴 항목의 텍스트
+                console.log(menuItem + ' 메뉴가 선택되었습니다.');
+
+                // 이곳에서 필요한 작업을 수행하세요. 예: 페이지 내용 변경
+            });
         });
-</script>
+    </script>
 </body>
 </html>
