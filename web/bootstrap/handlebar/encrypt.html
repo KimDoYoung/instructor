@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bs-0</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>title1</title>
+</head>
+<body>
+    <div class="container">
+        <h1>텍스트 암복호</h1>
+        <div>
+            <strong>소스</strong> <input type="button" value="Clear" id="clearBtn" class="btn btn-secondary"> <br>
+            <textarea name="text1" id="text1" cols="80" rows="10"></textarea>
+        </div>
+        <div>
+            <strong>암호힌트:</strong> <input type="text" id="hint" list="hintList" />&nbsp;
+            <datalist id="hintList">
+                <option>자주가는 중국집 이름한글+9##sht1</option>
+                <option>jsbirth+hname+9##sht1</option>
+                <option>산다(노스페이스)의미</option>
+                <option>지하철역+군번</option>
+            </datalist>
+            <strong>암호:</strong> <input type="password" name="password" id="password"> &nbsp;
+            <input type="button" id="eBtn" value="암호" class="btn btn-primary">
+            <input type="button" id="dBtn" value="복호" class="btn btn-primary">
+        </div>
+    
+        <div class="result">
+            <strong>결과</strong>  <input type="button" value="클립보드로 복사" id="copyToClipboardBtn" class="btn btn-success"> <br>
+            <textarea name="text2" id="text2" cols="80" rows="10"></textarea>
+        </div>
+    </div>    
+
+    <!-- bootstrap, popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <!-- custom -->
+    <script src="js/my.js"></script>
+    <script>
+        $(document).ready(function () {
+            //암호
+            $('#eBtn').on('click', function () {
+                var message = $('#text1').val();
+                var key = $('#password').val();
+                var hint = $('#hint').val();
+                var encrypted = CryptoJS.AES.encrypt(message, key);
+                var eText = encrypted.toString();
+                var text = "{" + hint + "[" + eText + "]}";
+                $('#text2').val(text);
+            });
+            $('#dBtn').on('click', function () {
+                var eText = $('#text1').val();
+                var key = $('#password').val();
+        
+                var p1 = eText.indexOf('[');
+                var p2 = eText.lastIndexOf(']');
+        
+                if(p1!=-1 && p2!=-1 && p2>=p1){
+                    eText=eText.substr(p1+1, p2-p1-1);
+                }
+              
+                var pText = CryptoJS.AES.decrypt(eText, key);
+                console.log(pText);
+                pText = pText.toString(CryptoJS.enc.Utf8);
+                console.log(pText);
+                p1 = pText.indexOf('"');
+                p2 = pText.lastIndexOf('"');
+                if(p1!=-1 && p2!=-1&&p2>=p1){
+                    pText=pText.substr(p1+1, p2-p1-1);
+                }
+                $('#text2').val(pText);
+            });
+            $('#clearBtn').on('click', function(){
+                $('#text1').val('');
+                $('#text2').val('');
+        
+            });
+            $('#copyToClipboardBtn').on('click', function(){
+                var text = $('#text2').get(0);
+                text.select();
+                try {
+                  var ok = document.execCommand('copy');
+                  if (!ok) {
+                    alert('fail to copy to clipboard');
+                  }
+                } catch (e) {
+                  alert('not support');
+                } finally {
+                    if(document.selection){
+                         document.selection.empty();
+                    }else{
+                        window.getSelection().removeAllRanges();
+                    }
+                }
+            });
+        });
+        </script>  
+</body>
+</html>

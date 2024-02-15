@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bs-0</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>title1</title>
+</head>
+<body>
+    <div class="container">
+        <h3>table을 세로로 변환 </h3> &nbsp;&nbsp; <input type="button" value="Clear" id="btnClear" class="btn btn-secondary"/>&nbsp;
+        <strong>구분자</strong> :     <input type="text" id="deli" list="fsValues">
+        <datalist id="fsValues">
+          <option value="TAB">Tab</option>
+          <option value=",">Comma</option>
+        </datalist>
+        <input type="button"  id="btnRun" value="Run" title="generate insert select "  class="btn btn-primary"/>
+        <br/>
+        <strong>소스</strong> <br>
+        <textarea name="src" id="src" rows="10" cols="120" style="width:100%">
+            SCM004	01	관리자 직접입력		관리자 직접입력			10	Y	DBA	2차사업	2015-09-16 15:12:22	2차사업	2015-09-16 15:12:22
+            SCM004	02	신청기업		신청기업			20	Y	DBA	2차사업	2019-02-25 20:04:41	2차사업	2015-09-16 15:12:22
+            SCM004	03	중소기업진흥공단		중소기업진흥공단			30	Y	DBA	2차사업	2015-09-16 15:12:22	2차사업	2015-09-16 15:12:22
+            SCM004	04	한국산업기술평가관리원		한국산업기술평가관리원			40	Y	DBA	2차사업	2015-09-16 15:12:22	2차사업	2015-09-16 15:12:22
+            SCM004	05	관세청		관세청			50	Y	DBA	2차사업	2015-09-16 15:12:22	2차사업	2015-09-16 15:12:22
+            SCM004	06	국세청		국세청			60	Y	DBA	2차사업	2015-09-16 15:12:22	2차사업	2015-09-16 15:12:22
+            SCM004	07	기술보증기금		기술보증기금			70	Y	DBA	2차사업	2015-09-16 15:12:22	2차사업	2015-09-16 15:12:22
+            SCM004	08	중소기업중앙회		중소기업중앙회			80	Y	DBA	2차사업	2015-09-16 15:12:22	2차사업	2015-09-16 15:12:22
+            SCM004	09	고용정보원		고용정보원			90	Y	DBA	2차사업	2015-09-16 15:12:22	2차사업	2015-09-16 15:12:22
+            SCM004	10	기업지원내역정보		기업지원내역정보			100	Y	DBA	2차사업	2015-09-16 15:12:22	2차사업	2015-09-16 15:12:22
+            SCM004	11	특허청		특허청			110	Y	DBA	2차사업	2015-09-16 15:12:22	2차사업	2015-09-16 15:12:22
+            SCM004	12	비재정(인증)		비재정(인증)			120	Y	DBA	3차사업	2015-10-05 11:33:37	3차사업	2015-10-05 11:33:37
+            SCM004	13	비재정(조세,비재정)		비재정(조세,비재정)			130	Y	DBA	3차사업	2015-10-05 11:33:40	3차사업	2015-10-05 11:33:40
+            SCM004	20	FactoryOn		FactoryOn			140	Y		sysadmin	2019-02-25 20:05:09	sysadmin	2017-04-21 15:46:31
+            SCM004	30	지방중소벤처기업청					30	Y		sysadmin	2017-07-11 11:10:06	sysadmin	2017-08-29 09:41:33	          
+        </textarea><br/>
+        <strong>결과</strong> <br>
+        <textarea id="des" name="des" rows="10" cols="120" style="width:100%"></textarea>
+        <br>
+        <button type="button" id="btnCtc" name="btnCtc" title="copy to clipboard" class="btn btn-success">Copy to clipboard</button>
+    </div>    
+
+    <!-- bootstrap, popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- custom -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.core.min.js"></script>      
+     <script>
+     $( document ).ready(function() {
+      var $src = $('#src'), $des = $('#des');
+       $('#btnRun').on('click', function () {
+        var deli = $('#deli').val();
+        if(deli == 'TAB'){
+          deli = '\t';
+        } 
+        var trimmedSrc = $src.val().trim();
+        var  t= [], m=0; 
+        trimmedSrc.split('\n').forEach(function(line){
+          var fields = line.split(deli);
+          m = Math.max(fields.length, m);
+          t.push(fields);
+        });
+        console.log(t);
+        var r = '';
+        // for(var i = 0 ; i < t.length; i++){
+        //   var a = t[i];
+        //   for(var j = 0; j < m ; j++){
+        //      r += a[j].trim() + "\t";  
+        //   }
+        //   r += "\n";
+        // }
+        for(var i = 0 ; i < m; i++){
+          for(var j = 0; j < t.length ; j++){
+             r += ((t[j][i]) + "").trim() + deli;  
+          }
+          r += "\n";
+        }
+  
+        $des.val(r);
+  
+      });
+      $('#btnClear').on('click', function(){
+          console.log('clear...');
+          $src.empty(); $des.empty();
+          $src.val('');
+          $des.val('');
+      });
+      $('#btnCtc').on('click', function(){
+           var text = $des.get(0);
+          text.select();
+          try {
+            var ok = document.execCommand('copy');
+            if (!ok) {
+              alert('fail to copy to clipboard');
+            }
+            $des.focus();
+          } catch (e) {
+            alert('not support');
+          } finally {
+            if(document.selection){
+                   document.selection.empty();
+              }else{
+                  window.getSelection().removeAllRanges();
+              }
+          }
+       });    
+     }); //end of document ready
+     </script>
+</body>
+</html>
