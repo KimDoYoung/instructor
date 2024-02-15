@@ -6,127 +6,81 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <title>Monthly Calendar</title>
   <style>
-    .calendar-day {
-      border: 1px solid #ccc;
-      cursor: pointer;
-      padding: 10px;
-      text-align: center;
-    }
+      /* 사용자 정의 CSS 스타일 */
+      .calendar-border-day {
+          border: 1px solid #dee2e6; /* 테두리 스타일 및 색상 지정 */
+          padding: 10px; /* 선택적으로 패딩 추가 */
+          height : 150px;
+      }
+      .day {
+          border: 1px solid #dee2e6; /* 테두리 스타일 및 색상 지정 */
+          padding: 10px; /* 선택적으로 패딩 추가 */
+          height : 150px;
+      }      
+      .week {
+          border: 1px solid #dee2e6; /* 테두리 스타일 및 색상 지정 */
+          padding: 5px; /* 선택적으로 패딩 추가 */
+      }    
+
+	    .border-icon {
+	      border: 1px solid #007bff; /* 보더 색상 */
+	      padding: 8px 12px; /* 보더 주변의 여백을 조절할 수 있습니다 */
+	      border-radius: 5px; /* 보더의 모서리를 둥글게 만들기 위해 사용 */
+	    }
+   schedule-item {
+    display: block; /* 블록 레벨 요소로 만듦 */
+    white-space: nowrap; /* 텍스트를 한 줄에 표시 */
+    overflow: hidden; /* 초과하는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 숨겨진 텍스트를 ...으로 표시 */
+    max-width: 100px; /* 최대 너비 설정, 필요에 따라 조정 */
+    margin-bottom: 2px; /* 스케줄 간 간격 조정 */
+    padding: .25em .4em; /* badge 스타일 조정 */
+    font-size: 75%; /* badge 크기 조정 */
+    color: #fff; /* 텍스트 색상 */
+    background-color: #007bff; /* 배경 색상, primary badge 색상 */
+    border-radius: .25rem; /* 둥근 모서리 */
+  }
+  .schedule-badge {
+    display: inline-block;
+    max-width: 100px; /* 최대 너비 설정, 이 값은 조정 가능 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: .25em .4em; /* Bootstrap badge 스타일 */
+    font-size: 75%; /* Bootstrap badge 스타일 */
+    color: #fff; /* 텍스트 색상 */
+    background-color: #007bff; /* 배경 색상, 예: Bootstrap primary 색상 */
+    border-radius: .25rem; /* 둥근 모서리 */
+}
+
   </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="row">
-          <!-- 검색 텍스트 입력란 -->
-          <div class="col-md-6 mb-3">
-            <input type="text" class="form-control" placeholder="검색 텍스트11">
-          </div>
-          
-          <!-- 검색, 초기화, 추가 버튼 -->
-          <div class="col-md-6">
-            <button type="button" class="btn btn-primary me-2">
-              <i class="bi bi-search"></i> 검색
-            </button>
-            
-            <button type="button" class="btn btn-secondary me-2">
-              <i class="bi bi-arrow-counterclockwise"></i> 초기화
-            </button>
-            
-            <button type="button" class="btn btn-success">
-              <i class="bi bi-plus"></i> 추가
-            </button>
-          </div>
-        </div>
+  <div class="container mt-5 vh-100">
+    <div id="divCal">
+
     </div>
-
-    <div class="container mt-5">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="input-group">
-              <!-- 버튼에 아이콘 추가 -->
-              <button class="btn btn-primary" type="button" id="button-addon1">
-                <i class="bi bi-person"></i>
-              </button>
-              
-              <!-- 텍스트 입력란 -->
-              <input type="text" class="form-control" placeholder="사용자 이름" aria-label="사용자 이름" aria-describedby="button-addon1">
-            </div>
-          </div>
-        </div>
-      </div>
-<div class="container mt-5">
-  <!-- 현재 월을 표시하는 부분 -->
-  <h2 class="text-center mb-4" id="currentMonth"></h2>
-
-  <!-- 달력이 동적으로 추가될 부분 -->
-  <div class="row" id="calendar">
-    <!-- Calendar days will be dynamically added here -->
   </div>
-</div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/olivia-calendar2.js"></script>
+<!-- <script src="./js/olivia-calendar-utility.js"></script> -->
 <script>
   $(document).ready(function () {
-    // 달력을 그리는 함수
-    function drawCalendar(year, month) {
-      // 달력 컨테이너와 현재 월을 표시하는 엘리먼트에 대한 참조
-      const calendarContainer = $('#calendar');
-      const currentMonthElement = $('#currentMonth');
+  // 예시로 함수를 호출하여 결과를 콘솔에 출력
+  CalendarMaker.setHolidays([{ymd:'20240216', name:'테스트'},{ymd:'20240217', name:'휴가'}]);
+  CalendarMaker.setSchedule([
+    {ymd: '20240219', scheduleType:'01', content: 'jt와 점심'},
+    {ymd: '20240219', scheduleType:'02', content: '경남 천지창조 점검'},
+    {ymd: '20240216', scheduleType:'02', content: '경남 천지창조 점검'},
+  ]); 
+  var html = CalendarMaker.generateCalendarHTML(2024, 2);
+  // var html = CalendarMaker.calendarHtml(2024, 2);
+  console.log(html);
+  $('#divCal').html(html);
+});
 
-      // 현재 월을 표시하는 엘리먼트의 텍스트 설정
-      currentMonthElement.text(`${year}년 ${month + 1}월`);
-
-      // 현재 월의 첫 날을 나타내는 날짜 객체 생성
-      const firstDayOfMonth = new Date(year, month, 1);
-
-      // 주의 첫 날에 해당하는 숫자 (0은 일요일, 1은 월요일, ...)
-      const startingDay = firstDayOfMonth.getDay();
-
-      // 현재 월을 나타내는 행 엘리먼트 생성
-      let calendarRow = $('<div>').addClass('row');
-
-      // 이전 달의 일자를 추가
-      const lastMonthDays = new Date(year, month, 0).getDate();
-      for (let i = startingDay - 1; i >= 0; i--) {
-        const lastMonthDay = lastMonthDays - i;
-        const lastMonthCell = $('<div>').addClass('col-md-2 calendar-day');
-        lastMonthCell.text(`${lastMonthDay}`);
-        calendarRow.append(lastMonthCell);
-      }
-
-      // 현재 월의 각 일자를 돌면서 처리
-      for (let day = 1; day <= new Date(year, month + 1, 0).getDate(); day++) {
-        // 현재 일자를 나타내는 날짜 객체 생성
-        const currentDate = new Date(year, month, day);
-
-        // 일요일인 경우 (0은 일요일)
-        if (currentDate.getDay() === 0 && day !== 1) {
-          // 이전 행을 닫고 새로운 행을 생성
-          calendarContainer.append(calendarRow);
-          calendarRow = $('<div>').addClass('row');
-        }
-
-        // 현재 일자를 나타내는 엘리먼트 생성
-        const calendarDay = $('<div>').addClass('col-md-2 calendar-day');
-        calendarDay.text(`${day}`);
-
-        // 각 일자에 클릭 이벤트 리스너 추가
-        calendarDay.click(function () {
-          alert(`You clicked on ${currentDate.toDateString()}`);
-        });
-
-        // 엘리먼트를 행에 추가
-        calendarRow.append(calendarDay);
-      }
-
-      // 현재 월의 마지막 행을 추가
-      calendarContainer.append(calendarRow);
-    }
-
-    // 함수 호출을 통해 특정 년도와 월에 대한 달력 생성
-    drawCalendar(2024, 1); // 0은 1월을 나타냄
-  });
 </script>
 
 </body>
