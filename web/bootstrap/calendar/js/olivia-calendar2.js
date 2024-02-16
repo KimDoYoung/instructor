@@ -57,7 +57,7 @@ const CalendarMaker = (function() {
 
         let classNames = 'col day';
         //if (isToday) classNames += 'badge';
-        if (!isInCurrentMonth) classNames += ' text-muted small';
+        if (!isInCurrentMonth) classNames += ' text-muted small fst-italic';
         if (isHoliday) classNames += ' text-danger';
         if (dayOfWeek === 0) classNames += ' text-danger';
         else if (dayOfWeek === 6) classNames += ' text-primary';

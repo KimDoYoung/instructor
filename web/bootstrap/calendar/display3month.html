@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+  <title>Calendar3</title>
+  <style>
+
+#calendar .week {
+    border: 1px solid #dee2e6; /* 테두리 스타일 및 색상 지정 */
+    padding: 5px; /* 선택적으로 패딩 추가 */
+}    
+
+#calendar .schedule-badge, .badge {
+    display: block; /* 스택처럼 쌓이도록 블록 요소로 설정 */
+    width: 100%; /* 너비를 부모 요소에 맞춤 */
+    overflow: hidden; /* 넘치는 내용 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트를 ...으로 표시 */
+    white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+}
+#calendar .today-highlight {
+    display: inline-block;
+    width: 30px; /* 원의 크기 조정 */
+    height: 30px; /* 원의 크기 조정 */
+    line-height: 30px; /* 텍스트를 수직 중앙 정렬 */
+    border-radius: 50%; /* 원 모양 */
+    background-color: #AED9E0; /* 연한 파란색 파스텔 색상 */
+    color: #6f1ff0; /* 텍스트 색상을 어두운 그레이로 조정 */
+    text-align: center; /* 텍스트를 가로 중앙 정렬 */
+    /* font-weight: bold; 텍스트를 굵게 */
+}
+/* 컨테이너 내의 .day 요소에 대한 스타일 */
+#calendar .day {
+    /* cursor: pointer; /* 마우스 오버 시 커서를 포인터로 변경 */
+    /* transition: background-color 0.3s; 배경색 변경 시 부드러운 전환 효과 */ 
+    border: 1px solid #dee2e6; /* 테두리 스타일 및 색상 지정 */
+    padding: 10px; /* 선택적으로 패딩 추가 */
+    height : 150px;
+ 
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;    
+}
+
+/* 컨테이너 내의 .day 요소에 대한 마우스 오버 스타일 */
+#calendar .day:hover {
+    background-color: #f8f9fa; /* 마우스 오버 시 아주 흐린 회색으로 배경색 변경 */
+}
+  </style>
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-4" id="prev-month"></div>
+            <div class="col-md-4" id="current-month"></div>
+            <div class="col-md-4" id="next-month"></div>
+        </div>
+    </div>
+
+  
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/olivia-lunar-calendar.js"></script>
+<script src="js/olivia-calendar3.js"></script>
+<!-- <script src="./js/olivia-calendar-utility.js"></script> -->
+<script>
+$(document).ready(function() {
+    const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+
+    // 이전 달, 현재 달, 다음 달 계산
+    const prevMonthDate = new Date(currentYear, currentMonth - 1, 1);
+    const nextMonthDate = new Date(currentYear, currentMonth + 1, 1);
+
+    let calendar = new OliviaCalendar('calendar', {
+       onDateClick : function(ymd) {
+           console.log(ymd);
+           alert(ymd);
+       }
+    });
+
+
+    // 달력 표시 함수
+    function displayMonth(containerId, monthDate) {
+        const month = monthDate.getMonth();
+        const year = monthDate.getFullYear();
+        const displayTitle = `${year}년 ${monthNames[month]}`;
+        $(containerId).html(`<h4 class="text-center">${displayTitle}</h4>`);
+        //
+        // 여기에 달력 날짜를 렌더링하는 로직 추가
+    }
+
+    // 각 컨테이너에 달력 표시
+    displayMonth('#prev-month', prevMonthDate);
+    displayMonth('#current-month', today);
+    displayMonth('#next-month', nextMonthDate);
+});
+
+// $(document).ready(function() {
+//     const today = new Date();
+//     let currentYear = new Date().getFullYear(); 
+//     let currentMonth = new Date().getMonth() + 1; // JavaScript에서 월은 0부터 시작하므로 +1
+
+//   // 'divCal' ID를 가진 요소 내에 달력을 생성 및 렌더링
+//     var calendar = new OliviaCalendar('calendar', {
+//        onDateClick : function(ymd) {
+//            console.log(ymd);
+//            alert(ymd);
+//        }
+//     });
+//       // 이전 달 버튼 클릭 이벤트
+//       $("#prevMonth").click(function() {
+//         currentMonth--;
+//         if (currentMonth < 1) {
+//             currentMonth = 12;
+//             currentYear--;
+//         }
+//         updateCalendar();
+//     });
+
+//     // 다음 달 버튼 클릭 이벤트
+//     $("#nextMonth").click(function() {
+//         currentMonth++;
+//         if (currentMonth > 12) {
+//             currentMonth = 1;
+//             currentYear++;
+//         }
+//         updateCalendar();
+//     });
+
+//     $("#today").click(function() {
+//         // "오늘" 버튼 클릭 시 현재 날짜로 설정
+//         currentYear = today.getFullYear();
+//         currentMonth = today.getMonth() + 1;
+//         updateCalendar();
+//     });
+
+//     function updateCalendar() {
+//         // 달력 업데이트 로직 구현
+//         $("#currentYearMonth").text(`${currentYear}년 ${currentMonth}월`);
+//         // OliviaCalendar 인스턴스의 render 메서드 호출 등
+
+//         var holidays = CalendarDataService.getHolidaysForMonth(currentYear, currentMonth);
+//         var schedules = CalendarDataService.getEventsForMonth(currentYear, currentMonth);
+        
+//         calendar.setHolidays(holidays);
+//         calendar.setSchedule(schedules);
+
+//         // 달력 렌더링
+//         calendar.render(currentYear, currentMonth);
+//     }
+//     //다음에 바꿔보다
+//     // function updateCalendar() {
+//     //   // 비동기 요청을 위한 Promise 배열 생성
+//     //   let promises = [
+//     //       CalendarDataService.getHolidaysForMonth(currentYear, currentMonth),
+//     //       CalendarDataService.getEventsForMonth(currentYear, currentMonth)
+//     //   ];
+
+//     //   // Promise.all을 사용하여 모든 데이터가 로드될 때까지 기다림
+//     //   Promise.all(promises).then(results => {
+//     //       // results[0]은 첫 번째 요청(공휴일)의 응답, results[1]은 두 번째 요청(스케줄)의 응답
+//     //       calendar.setHolidays(results[0]);
+//     //       calendar.setSchedule(results[1]);
+
+//     //       // 모든 데이터가 준비되었으므로 달력 렌더링
+//     //       calendar.render(currentYear, currentMonth);
+//     //   }).catch(error => {
+//     //       console.error("데이터를 불러오는 중 에러가 발생했습니다.", error);
+//     //   });
+//     // }
+//     // 초기 달력 렌더링
+//     updateCalendar();
+
+// });
+
+</script>
+
+</body>
+</html>

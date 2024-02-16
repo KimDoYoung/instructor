@@ -69,12 +69,12 @@
 <script>
   $(document).ready(function () {
   // 예시로 함수를 호출하여 결과를 콘솔에 출력
-  CalendarMaker.setHolidays([{ymd:'20240216', name:'테스트'},{ymd:'20240217', name:'휴가'}]);
-  CalendarMaker.setSchedule([
-    {ymd: '20240219', scheduleType:'01', content: 'jt와 점심'},
-    {ymd: '20240219', scheduleType:'02', content: '경남 천지창조 점검'},
-    {ymd: '20240216', scheduleType:'02', content: '경남 천지창조 점검'},
-  ]); 
+  //CalendarMaker.setHolidays([{ymd:'20240216', name:'테스트'},{ymd:'20240217', name:'휴가'}]);
+  // CalendarMaker.setSchedule([
+  //   {ymd: '20240219', scheduleType:'01', content: 'jt와 점심'},
+  //   {ymd: '20240219', scheduleType:'02', content: '경남 천지창조 점검'},
+  //   {ymd: '20240216', scheduleType:'02', content: '경남 천지창조 점검'},
+  // ]); 
   var html = CalendarMaker.generateCalendarHTML(2024, 2);
   // var html = CalendarMaker.calendarHtml(2024, 2);
   console.log(html);
