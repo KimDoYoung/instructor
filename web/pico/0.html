@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pico CSS Dropdown and Sidebar Example</title>
+    <!-- Pico CSS CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/pico-css/dist/pico.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#" class="accordion">Dropdown</a>
+    <div class="dropdown-content">
+        <a href="#">Submenu 1</a>
+        <a href="#">Submenu 2</a>
+        <a href="#">Submenu 3</a>
+    </div>
+    <a href="#">Contact</a>
+</div>
+
+<div class="content">
+    <div class="left-content">
+        <h2>Line Graph Data Form</h2>
+
+        <form action="/your-server-endpoint" method="post" class="compact-form">
+            <fieldset>
+                <legend>Chart Details</legend>
+                <div class="form-row">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title">
+                </div>
+                
+                <div class="form-row">
+                    <label for="x_label">X-axis Label:</label>
+                    <input type="text" id="x_label" name="x_label">
+                    <label for="x_data">X Data:</label>
+                    <input type="text" id="x_data" name="x_data" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="y_label">Y-axis Label:</label>
+                    <input type="text" id="y_label" name="y_label">
+                    <label for="y_data">Y Data:</label>
+                    <input type="text" id="y_data" name="y_data" required>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Appearance</legend>
+                <div class="form-row">
+                    <label for="line_color">Line Color:</label>
+                    <input type="text" id="line_color" name="line_color">
+                    <label for="line_style">Line Style:</label>
+                    <input type="text" id="line_style" name="line_style">
+                </div>
+                
+                <div class="form-row">
+                    <label for="line_width">Line Width:</label>
+                    <input type="number" step="any" id="line_width" name="line_width">
+                    <label for="marker_style">Marker Style:</label>
+                    <input type="text" id="marker_style" name="marker_style">
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Options</legend>
+                <div class="form-row">
+                    <label for="axis_range">Axis Range:</label>
+                    <input type="text" id="axis_range" name="axis_range">
+                    <label for="legend_label">Legend Label:</label>
+                    <input type="text" id="legend_label" name="legend_label">
+                </div>
+                
+                <div class="form-row">
+                    <label for="grid">Show Grid:</label>
+                    <select id="grid" name="grid">
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                    <label for="text_labels">Text Labels:</label>
+                    <input type="text" id="text_labels" name="text_labels">
+                </div>
+            </fieldset>
+            
+            <input type="submit" value="Submit" class="submit-btn">
+        </form>
+        
+    </div>
+    <div class="right-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.</p>
+    </div>
+</div>
+
+
+    <!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    // jQuery for Accordion interaction
+    $(document).ready(function(){
+        $('.accordion').click(function(){
+            $(this).next('.dropdown-content').slideToggle('fast');
+            // Optional: Add active class to the button that opens the accordion
+            $(this).toggleClass('active');
+        });
+    });
+</script>
+</body>
+</html>
