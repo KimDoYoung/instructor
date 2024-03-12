@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body, button {
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+        .nav-custom {
+            background-color: #87CEEB; /* 하늘색 */
+            color: white;
+        }
+        #sidebar.custom-aside {
+            background-color: #808080; /* 회색 */
+            color: black;
+            height: 100vh; /* 브라우저의 높이를 꽉 채우도록 설정 */
+        }
+        #sidebar.custom-aside li {
+            margin: 8px 0;
+        }
+        #sidebar.custom-aside li:hover {
+            background-color: blue; /* 파란색 */
+            color: yellow; /* 노란색 */
+            padding: 10px;
+            border-radius: 5px;
+            width: calc(100% - 20px); /* padding을 고려한 너비 조정 */
+        }
+        #sidebar.custom-aside.w-16 li {
+            padding: 10px 0; /* 아이콘만 보일 때 padding 조정 */
+        }
+        #sidebar.custom-aside.w-16 li:hover {
+            background-color: transparent; /* 아이콘만 보일 때 hover 배경 투명 */
+            color: yellow; /* hover 시 노란색 글씨 */
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-custom h-8 flex items-center px-4" style="height: 1cm;">
+        <span class="font-bold">Eliana-Chart Server</span>
+        <a href="#" class="mx-2">챠트</a>
+        <a href="#" class="mx-2">샘플</a>
+    </nav>
+
+    <div class="flex">
+        <aside class="custom-aside w-64 p-4" id="sidebar">
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg" id="menuText">메뉴</h2>
+                <i class="fas fa-bars cursor-pointer" id="toggleSidebar"></i>
+            </div>
+            <ul class="mt-4">
+                <li class="flex items-center mt-2">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    <a href="#" class="sidebar-link">라인 챠트</a>
+                </li>
+                <li class="flex items-center mt-2">
+                    <i class="fas fa-chart-bar mr-2"></i>
+                    <a href="#" class="sidebar-link">막대 챠트</a>
+                </li>
+            </ul>
+        </aside>
+        <!-- 여기에 차트 콘텐츠 추가 -->
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#toggleSidebar').click(function() {
+                $('#sidebar').toggleClass('w-64 w-16');
+                $('.sidebar-link, #menuText').toggle(); // 메뉴명 표시 전환
+            });
+
+            // `aside` 메뉴가 작아졌을 때 아이콘 hover 및 클릭 이벤트를 적절히 처리할 수 있도록 추가 스크립트 작성
+            // 예시에서는 기본적인 hover 스타일 및 클릭 이벤트 처리 방법을 제시하며,
+            // 실제 클릭 이벤트에 대한 처리는 프로젝트의 요구사항에 따라 다를 수 있습니다.
+        });
+    </script>
+</body>
+</html>
