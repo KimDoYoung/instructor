@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body, button {
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+        .nav-custom {
+            background-color: #87CEEB; /* 하늘색 */
+            color: white;
+        }
+        #sidebar.custom-aside {
+            background-color: #dcd4d4; /* 회색 */
+            color: black;
+            height: 100vh; /* 브라우저의 높이를 꽉 채우도록 설정 */
+        }
+        #sidebar.custom-aside li {
+            margin: 8px 0;
+        }
+        #sidebar.custom-aside li:hover {
+            background-color: rgb(108, 108, 238); /* 파란색 */
+            color: yellow; /* 노란색 */
+            padding: 10px;
+            border-radius: 5px;
+            width: calc(100% - 20px); /* padding을 고려한 너비 조정 */
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-custom h-8 flex items-center px-4" style="height: 1cm;">
+        <span class="font-bold">Eliana-Chart Server</span>
+        <a href="#" class="mx-2">챠트</a>
+        <a href="#" class="mx-2">샘플</a>
+    </nav>
+
+    <div class="flex">
+        <!-- aside 메뉴 -->
+        <aside class="custom-aside w-64 p-4" id="sidebar">
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg" id="menuText">메뉴</h2>
+                <i class="fas fa-bars cursor-pointer" id="toggleSidebar"></i>
+            </div>
+            <ul class="mt-4">
+                <li class="menu-chart flex items-center mt-2"  data-chart-type="line">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    <a href="#" class="sidebar-link">라인 챠트</a>
+                </li>
+                <li class="menu-chart flex items-center mt-2"   data-chart-type="bar">
+                    <i class="fas fa-chart-bar mr-2"></i>
+                    <a href="#" class="sidebar-link">막대 챠트</a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- 메인 콘텐츠 영역 -->
+        <div class="flex flex-1 min-h-screen">
+            <!-- 왼쪽 영역: 입력 폼 -->
+            <div class="w-1/2 flex flex-col p-5 gap-4">
+                <div class="flex flex-col gap-2">
+                    <label for="sample-select">샘플:</label>
+                    <select id="sample-select" class="border p-2">
+                        <option value="">옵션 선택...</option>
+                        <!-- 옵션 추가 -->
+                    </select>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="json-data">Json 데이터:</label>
+                    <textarea id="json-data" class="border p-2" rows="4"></textarea>
+                </div>
+                <div>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        제출
+                    </button>
+                </div>
+            </div>
+    
+            <!-- 오른쪽 영역 -->
+            <div class="w-1/2 flex flex-col p-5 gap-4" id="right-area">
+                <div class="flex border-b">
+                    <button class="tab tab-charts flex-1 text-xl font-bold text-center p-2">챠트</button>
+                    <button class="tab tab-json flex-1 text-xl font-bold text-center p-2">Json</button>
+                </div>
+
+                <!-- 챠트 탭 내용 -->
+                <div class="tab-content content-charts text-center hidden">
+                    <div class="text-left">
+                        <a href="https://example.com" target="_blank" class="text-blue-500 hover:underline">임의의 URL</a>
+                    </div>    
+                    <img src="https://via.placeholder.com/800" alt="임의의 이미지">
+                </div>
+
+                <!-- Json 탭 내용 -->
+                <div class="tab-content content-json hidden">
+                    <!-- Json 관련 내용을 여기에 추가 -->
+                    <p>Json 데이터가 여기에 표시됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+
+            // aside 크기 토글 버튼
+            $('#toggleSidebar').click(function() {
+                $('#sidebar').toggleClass('w-64 w-16');
+                $('.sidebar-link, #menuText').toggle(); // 메뉴명 표시 전환
+            });
+            // aside 메뉴클릭 
+            $('.menu-chart').on('click', function(e){
+                e.stopPropagation();
+                console.log($(this).data('chart-type'))
+            })
+            //탭 click
+            $('#right-area .tab').click(function() {
+                var tabId = $(this).attr('class').split(' ')[1]; // 클릭한 탭의 class에서 식별자 추출
+
+                // 모든 탭 컨텐츠 숨기기
+                $('.tab-content').addClass('hidden');
+
+                // 클릭한 탭에 해당하는 컨텐츠만 보이기
+                $('.content-' + tabId.split('-')[1]).removeClass('hidden');
+
+                // 모든 탭의 활성화 상태 제거
+                $('.tab').removeClass('bg-blue-500 text-white');
+
+                // 현재 탭 활성화
+                $(this).addClass('bg-blue-500 text-white');
+            });
+
+            // 기본적으로 첫 번째 탭 활성화
+            $('.tab-charts').click();            
+        });
+    </script>    
+</body>
+</html>
