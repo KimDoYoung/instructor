@@ -1,0 +1,60 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<link href= 
+"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+		rel="stylesheet"> 
+	<script src= 
+"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"> 
+	</script> 
+</head> 
+<body> 
+	<h1 class="m-4 text-success"> 
+		GeeksforGeeks 
+	</h1> 
+	<h4 class="ms-4"> 
+		Bootstrap 5 Offcanvas Usage Via data JavaScript 
+	</h4> 
+	<div class="container d-flex mb-4 p-4"> 
+		<button class="btn btn-success m-3"
+				type="button" id="trigger-btn"> 
+			This button is able to call an Offcanvas 
+			<br> Using JavaScript <br> 
+			Which is the Right placed offcanvas 
+		</button> 
+	</div> 
+	<div class="offcanvas offcanvas-end bg-dark 
+		text-light" 
+		id="offcanvasRight"> 
+		<div class="offcanvas-header"> 
+			<h5 class="offcanvas-title"> 
+			This is the Default offcanvas 
+			triggered with JavaScript. 
+			</h5> 
+			<button type="button"
+				class="btn-close text-reset bg-light"
+				data-bs-dismiss="offcanvas"
+				aria-label="Close"> 
+			</button> 
+		</div> 
+		<div class="offcanvas-body"> 
+			<p>This Offcanvas has the custom 
+			placed offcanvas which is Right.</p> 
+			<br> 
+		</div> 
+	</div> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script> 
+		//New instance of the collapse element is created 
+		var offcanvasElement = document.getElementById("offcanvasRight"); 
+		var offcanvas = new bootstrap.Offcanvas(offcanvasElement); 
+		
+		//The offcanvas element is toggled using the toggle() function 
+		let button = document.getElementById("trigger-btn"); 
+		button.addEventListener("click", () => { 
+			return offcanvas.toggle(); 
+		; 
+		}); 
+	</script> 
+</body> 
+</html>

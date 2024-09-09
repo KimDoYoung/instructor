@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://cdnjs.com/libraries/billboard.js"></script> -->
+    <script src="https://naver.github.io/billboard.js/release/latest/dist/billboard.pkgd.min.js"></script>
+</head>
+<body>
+    
+    <h1>billboard</h1>
+    <div id="barChart"></div>
+    <div id=="dataFromURL"></div>
+    <script>
+let data = {
+  "x": [
+    "2021-02-20",
+    "2021-02-21",
+    "2021-02-22",
+    "2021-02-23",
+    "2021-02-24"
+  ],
+  "data1": [
+    [
+      1300,
+      1369,
+      1200,
+      1339,
+      100
+    ],
+    [
+      1300,
+      1369,
+      1200,
+      1339,
+      100
+    ],
+    [
+      1300,
+      1369,
+      1200,
+      1339,
+      100
+    ],
+    [
+      1300,
+      1369,
+      1200,
+      1339,
+      100
+    ],
+    [
+      1300,
+      1369,
+      1200,
+      1339,
+      100
+    ]
+  ]
+}
+
+      var chart = bb.generate({
+  // data: {
+  //   x: "x",
+  //   url: "https://skyksit.com/contents/out/stock/012700_01_12.json",
+  //   mimeType: "json",
+  //   type: "candlestick",
+  //   colors: {
+  //     data1: "red"
+  //   },
+  //   labels: false
+  // },
+  data : data,
+  candlestick: {
+    color: {
+      down: "blue"
+    },
+    width: {
+      ratio: 0.5
+    }
+  },
+  axis: {
+    x: {
+      type: "timeseries",
+      tick: {
+        format: "%Y-%m-%d"
+      }
+    }
+  },
+  grid: {
+    x: {
+      show: true,
+      lines: [
+        {
+          value: "2000-02-08",
+          text: "무증시점"
+        }
+      ]
+    },
+    y: {
+      show: true
+    }
+  },
+  zoom: {
+    enabled: true, // for ESM specify as: zoom()
+    type: "drag"
+  },
+  legend: {
+    show: false
+  },
+	regions: [
+    {
+      start: "2021-02-20",
+      end: "2021-02-24"
+    }
+  ],
+  bindto: "#dataFromURL"
+});
+      </script>    
+</body>
+</html>
