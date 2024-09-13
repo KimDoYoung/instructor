@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <button id="btn1">close all tab</button>
+    <button id="btn2">add tab</button>
+    <button id="btn3">remove tab</button>
+    
+    <div id="tab-area" class="m-5"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="tab-manager.js"></script>
+    <script>
+
+        $(document).ready(function() {
+            const tabManager = new TabManager('#tab-area');
+            const tab1 = tabManager.addTab('tab1', '삼성전자1');
+            const tab2 = tabManager.addTab('tab2', '삼성전자2');
+            const lorem = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus adipisci dolorum molestias, repudiandae, perspiciatis cumque vitae inventore similique maxime magni pariatur tempore ad officia recusandae corrupti aliquam necessitatibus cum deleniti';
+            tabManager.addTabContent(tab1, `<h1>삼성전자1</h1><p>${lorem}</p>`);
+            tabManager.addTabContent(tab2, `<div id="chart1" class="bg-danger">111</div>`);
+            $('#btn1').click(function() {
+                tabManager.closeAllTabs();
+            });
+            $('#btn2').click(function() {
+                const seq = tabManager.getTabSeq()+1;
+                const tabId = tabManager.addTab('tab'+seq, '삼성전자'+seq);
+                tabManager.addTabContent(tabId, `<h1>삼성전자${seq}</h1><p>${lorem}</p>`);
+                tabManager.selectTab(tabId);
+            }); 
+            $('#btn3').click(function() {
+                tabManager.removeTab(tab1)
+            });                        
+        });
+    </script>
+</body>
+</html>

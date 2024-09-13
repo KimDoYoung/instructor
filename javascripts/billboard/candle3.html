@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>종목명</td>
+            <td>챠트</td>
+        </tr>
+        <tr>
+            <td>삼성전자</td>
+            <td>
+                <canvas id="candleChart1" width="100" height="30"></canvas>
+            </td>
+        </tr>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    const canvas = $('#candleChart1')[0];
+    const ctx = canvas.getContext('2d');
+    const data = {
+        open: 150,
+        close: 100,
+        high: 350,
+        low: 50
+    };
+    drawHorizontalCandle(ctx, data.open, data.close, data.high, data.low);
+});
+function drawHorizontalCandle(ctx, open, close, high, low) {
+    const candleWidth = 20;  // 캔들 두께
+    const height = ctx.canvas.height;
+
+    const openX = Math.min(open, close); // 왼쪽 기준점 (open과 close 중 작은 값)
+    const closeX = Math.max(open, close); // 오른쪽 기준점 (open과 close 중 큰 값)
+
+    const highX = high;  // 캔들 윗꼬리 끝
+    const lowX = low;    // 캔들 아래꼬리 끝
+
+    // 배경 클리어
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    c
+
+    // 캔들 윗꼬리 (high)
+    ctx.beginPath();
+    ctx.moveTo(highX, height / 2);
+    ctx.lineTo(closeX, height / 2);
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // 캔들 몸통
+    ctx.fillStyle = open > close ? "red" : "green"; // 시가 > 종가면 붉은 캔들
+    ctx.fillRect(openX, (height - candleWidth) / 2, closeX - openX, candleWidth);
+
+    // 캔들 아래꼬리 (low)
+    ctx.beginPath();
+    ctx.moveTo(openX, height / 2);
+    ctx.lineTo(lowX, height / 2);
+    ctx.stroke();
+}    
+</script>    
+</body>
+</html>
